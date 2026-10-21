@@ -84,7 +84,7 @@ function Screens() {
         />
       ) : (
         <>
-          {tab === 'home' && <Home prices={prices} onOpen={open} onTopUp={() => setTopUpOpen(true)} onTab={goTab} />}
+          {tab === 'home' && <Home prices={prices} onOpen={open} onTopUp={() => setTopUpOpen(true)} />}
           {tab === 'explore' && <Explore prices={prices} onOpen={open} />}
           {tab === 'learn' && <Learn onTerm={openTerm} onReset={resetDemo} />}
           <TabBar tab={tab} onTab={goTab} />

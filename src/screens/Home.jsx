@@ -4,16 +4,7 @@ import AllocationDonut from '../components/AllocationDonut.jsx'
 
 const tone = (n) => (n >= 0 ? 'text-gain' : 'text-loss')
 
-function ActionTile({ icon, label, onClick }) {
-  return (
-    <button onClick={onClick} className="card flex flex-col items-center gap-1.5 py-3 hover:bg-bg">
-      <span className="w-8 h-8 rounded-full bg-accent/10 text-accent grid place-items-center text-lg leading-none">{icon}</span>
-      <span className="text-sm font-medium">{label}</span>
-    </button>
-  )
-}
-
-export default function Home({ prices, onOpen, onTopUp, onTab }) {
+export default function Home({ prices, onOpen, onTopUp }) {
   const { cash, holdings } = usePortfolio()
   const owned = Object.entries(holdings).map(([sym, h]) => {
     const price = prices.price(sym)
@@ -33,7 +24,12 @@ export default function Home({ prices, onOpen, onTopUp, onTab }) {
       </header>
 
       <section className="hero mt-4 p-5">
-        <p className="text-white/60 text-xs">Your practice portfolio</p>
+        <div className="flex items-center justify-between">
+          <p className="text-white/60 text-xs">Your practice portfolio</p>
+          <button onClick={onTopUp} className="btn text-xs py-1.5 px-3 rounded-full bg-white/10 text-white hover:bg-white/20 ring-1 ring-white/15">
+            + Top up
+          </button>
+        </div>
         <div className="text-[34px] font-bold num tracking-tight mt-1">{money(cash + invested)}</div>
         {owned.length > 0 ? (
           <p className="num text-sm mt-1 text-[#5FE0C8]">
@@ -54,11 +50,6 @@ export default function Home({ prices, onOpen, onTopUp, onTab }) {
         </div>
       </section>
 
-      <div className="grid grid-cols-3 gap-3 mt-4">
-        <ActionTile icon="+" label="Top up" onClick={onTopUp} />
-        <ActionTile icon="↗" label="Explore" onClick={() => onTab('explore')} />
-        <ActionTile icon="ⓘ" label="Learn" onClick={() => onTab('learn')} />
-      </div>
 
       <section className="mt-7">
         <h2 className="text-lg font-semibold">Holdings</h2>

@@ -22,7 +22,7 @@ Success means the user has made a trade, watched it gain or lose value, and unde
 Source: `scope.md > The Core Loop`, `scope.md > What "Working" Looks Like`.
 
 ## Screens and Layout
-- **Bottom tabs** (added at final review so it isn't all on one screen): **Home** (portfolio card, top up, holdings, allocation), **Explore** (stock list), **Learn** (all five terms with opened ✓, badges, reset demo). Tabs hide on a stock's page, where the Buy/Sell pill sits.
+- **Bottom tabs** (added at final review so it isn't all on one screen): **Home** (portfolio card with a Top up button inside it, holdings, allocation), **Explore** (stock list), **Learn** (all five terms with opened ✓, badges, reset demo). Tabs hide on a stock's page, where the Buy/Sell pill sits.
 - **Intro:** a short welcome to the app, ending with a choice: "Take the guided tutorial" or "Skip."
 - **Home:** the cash balance at the top, then the user's holdings and how they're doing, plus a way to browse stocks and to top up fake money.
 - **Stock detail:** price, a chart, key terms (tappable), and Buy / Sell buttons.
