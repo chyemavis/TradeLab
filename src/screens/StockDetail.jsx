@@ -1,8 +1,10 @@
 import { bySymbol, volatilityLabel } from '../data/stocks.js'
 import { money, pct, bigMoney } from '../format.js'
 import PriceChart from '../components/PriceChart.jsx'
+import TermLink from '../components/TermLink.jsx'
 
-export default function StockDetail({ symbol, prices, onBack, renderTerm = (id, label) => label }) {
+export default function StockDetail({ symbol, prices, onBack, onTerm, position = null }) {
+  const renderTerm = (id, label) => <TermLink id={id} onOpen={onTerm}>{label}</TermLink>
   const s = bySymbol[symbol]
   const ch = prices.change(symbol)
   const stats = [
@@ -33,6 +35,18 @@ export default function StockDetail({ symbol, prices, onBack, renderTerm = (id, 
             </div>
           ))}
         </dl>
+
+        <h2 className="text-muted text-xs uppercase tracking-wider mt-8 mb-3">Your position</h2>
+        <div className="bg-surface rounded-xl p-4 flex items-center justify-between">
+          <span className="text-sm text-muted">{renderTerm('unrealizedGain', 'Unrealized gain/loss')}</span>
+          {position ? (
+            <span className={`num font-medium ${position.gain >= 0 ? 'text-gain' : 'text-loss'}`}>
+              {position.gain >= 0 ? '+' : ''}{money(position.gain)}
+            </span>
+          ) : (
+            <span className="text-muted text-sm">You don't own any yet</span>
+          )}
+        </div>
       </div>
     </div>
   )
