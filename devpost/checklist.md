@@ -66,6 +66,7 @@ Build mode: fast
 
 ## Final Review
 
+- [x] Split into bottom tabs: Home, Explore, Learn — learner: "it should not be all info in one screen"; tab grouping chosen by the agent at the learner's request
 - [ ] Final review complete — feedback resolved and learner confirms ready to ship
 
 ## Code Tour and App Map

@@ -58,6 +58,7 @@ Final direction, from a reference screenshot the learner shared during the build
 ## Components
 
 ### App and Navigation
+`App` holds the active tab (`home` | `explore` | `learn`) and renders `TabBar` (`src/components/TabBar.jsx`) when no stock is open. Screens: `Home.jsx`, `Explore.jsx`, `Learn.jsx`; going back from a stock returns to the same tab.
 Holds which screen is showing: intro, home, or detail. The term sheet and trade panel are overlays. Tabs or routes aren't needed.
 PRD ref: `prd.md > Screens and Layout`.
 

@@ -3,6 +3,9 @@ import { usePrices } from './state/usePrices.js'
 import { PortfolioProvider, usePortfolio } from './state/PortfolioContext.jsx'
 import Home from './screens/Home.jsx'
 import Intro from './screens/Intro.jsx'
+import Explore from './screens/Explore.jsx'
+import Learn from './screens/Learn.jsx'
+import TabBar from './components/TabBar.jsx'
 import StockDetail from './screens/StockDetail.jsx'
 import TermSheet from './components/TermSheet.jsx'
 import TradePanel from './components/TradePanel.jsx'
@@ -18,6 +21,7 @@ function Screens() {
   const [trade, setTrade] = useState(null) // 'buy' | 'sell' | null
   const [topUpOpen, setTopUpOpen] = useState(false)
   const [tour, setTour] = useState(null) // guided tour step index, or null when off
+  const [tab, setTab] = useState('home') // 'home' | 'explore' | 'learn'
 
   // Advances the tour when the user does what the current step asks.
   const tourEvent = (event) => setTour((s) => (s !== null && s < TOUR.length && TOUR[s].on === event ? s + 1 : s))
@@ -44,8 +48,13 @@ function Screens() {
     portfolio.markIntroSeen()
     setTour(withTour ? 0 : null)
   }
+  const goTab = (t) => {
+    setTab(t)
+    window.scrollTo(0, 0)
+  }
   const resetDemo = () => {
     setSymbol(null)
+    setTab('home')
     setTour(null)
     portfolio.reset()
   }
@@ -74,7 +83,12 @@ function Screens() {
           }
         />
       ) : (
-        <Home prices={prices} onOpen={open} onTopUp={() => setTopUpOpen(true)} onReset={resetDemo} />
+        <>
+          {tab === 'home' && <Home prices={prices} onOpen={open} onTopUp={() => setTopUpOpen(true)} onTab={goTab} />}
+          {tab === 'explore' && <Explore prices={prices} onOpen={open} />}
+          {tab === 'learn' && <Learn onTerm={openTerm} onReset={resetDemo} />}
+          <TabBar tab={tab} onTab={goTab} />
+        </>
       )}
 
       <TermSheet termId={term} onClose={() => setTerm(null)} />

@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 
 // Guided tour steps. Each advances when its `on` event happens in the real app.
 export const TOUR = [
-  { on: 'open', text: 'Tap any stock in "Explore stocks" to open it.' },
+  { on: 'open', text: 'Tap the Explore tab at the bottom, then tap any stock to open it.' },
   { on: 'buyOpen', text: 'This is the stock page. Tap Buy at the bottom.' },
   { on: 'bought', text: 'Keep it at 1 share and tap the Buy button to confirm.' },
   { on: 'sellOpen', text: 'Read what happened, tap "Got it", then tap Sell.' },
