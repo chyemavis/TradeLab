@@ -16,7 +16,7 @@ function ActionTile({ icon, label, onClick }) {
   )
 }
 
-export default function Home({ prices, onOpen, onTopUp }) {
+export default function Home({ prices, onOpen, onTopUp, onReset }) {
   const { cash, holdings, earned } = usePortfolio()
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   const owned = Object.entries(holdings).map(([sym, h]) => {
@@ -145,6 +145,12 @@ export default function Home({ prices, onOpen, onTopUp }) {
           })}
         </ul>
         <p className="text-muted text-xs mt-4">Prices are simulated from sample data, not real market prices.</p>
+        <button
+          onClick={() => window.confirm('Start over with $10,000 and see the intro again? This clears your practice portfolio.') && onReset()}
+          className="text-muted text-xs underline underline-offset-2 mt-3 hover:text-ink"
+        >
+          Reset demo
+        </button>
       </section>
     </div>
   )

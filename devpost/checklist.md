@@ -49,7 +49,7 @@ Build mode: fast
   Learner check: Buy a stock and read the breakdown, sell it, open all five terms, and buy three different stocks. Check that the badges unlock and the donut shows your split.
   Commit: `Add trade breakdown, badges and allocation donut`
 
-- [ ] **5. First-time visitors get an intro and an optional guided tutorial**
+- [x] **5. First-time visitors get an intro and an optional guided tutorial**
   Becomes usable: A fresh visit shows 2–3 intro cards, then Tutorial or Skip. The tutorial's hint bar walks you through a buy and a sell on the real screens and doesn't come back after it's done.
   Why now: The tutorial guides people through the real trading flow, so that flow has to exist first.
   PRD ref: `prd.md > Intro and Guided Tutorial`
@@ -61,7 +61,7 @@ Build mode: fast
 
 ## Hands-on Checkpoints
 
-- [ ] Early usable behavior explored — after slice 2 (prices plus the kernel animations), while the design and animations can still change
+- [x] Early usable behavior explored — after slice 2 (prices plus the kernel animations), while the design and animations can still change. Feedback led to three restyles (playful, then calm navy, then a light brokerage look in mint blue) and the Learning extras slice.
 - [ ] Final kick-the-tires exploration and feedback completed
 
 ## Final Review
