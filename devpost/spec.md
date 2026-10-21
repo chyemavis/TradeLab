@@ -107,6 +107,12 @@ PRD ref: `prd.md > Term Explanations (the kernel)`.
 
 PRD ref: `prd.md > Learning Extras`.
 
+### Games
+- `src/games/sim.js` holds the pure rules: `randomYears(n)`, `runMix(stockPct, years)`, `sectorCrash(allocation, crashed)`. They can be checked with node.
+- `src/screens/Games.jsx` is the game picker; `src/games/RiskReward.jsx` and `src/games/Diversify.jsx` are the games. Game state lives in memory only and isn't saved.
+
+PRD ref: `prd.md > Games`.
+
 ## Data Model
 - **`stocks.js`** (fixed file): `{ symbol, name, basePrice, marketCap, peRatio, dividendYield, volatility }` × 8, for example AAPL, MSFT, TSLA, KO, NVDA, AMZN, JNJ, DIS. These are **sample data**: realistic but rounded and not live. Labeled as such in the app.
 - **Portfolio (`localStorage` key `pp:portfolio`):** `{ cash: 10000, holdings: { AAPL: { shares, avgCost } }, hasSeenIntro: false, stats: { buys, sells }, learnedTerms: [] }` (missing fields default, so older saves still load). Updated by store actions, and survives reloads.

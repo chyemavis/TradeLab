@@ -22,7 +22,7 @@ Success means the user has made a trade, watched it gain or lose value, and unde
 Source: `scope.md > The Core Loop`, `scope.md > What "Working" Looks Like`.
 
 ## Screens and Layout
-- **Bottom tabs** (added at final review so it isn't all on one screen): **Home** (portfolio card with a Top up button inside it, holdings, allocation), **Explore** (stock list), **Learn** (all five terms with opened ✓, badges, reset demo). Tabs hide on a stock's page, where the Buy/Sell pill sits.
+- **Bottom tabs** (added at final review so it isn't all on one screen): **Home** (portfolio card with a Top up button inside it, holdings, allocation), **Explore** (stock list), **Learn** (all five terms with opened ✓, badges, reset demo), **Games** (two learning games). Tabs hide on a stock's page, where the Buy/Sell pill sits.
 - **Intro:** a short welcome to the app, ending with a choice: "Take the guided tutorial" or "Skip."
 - **Home:** the cash balance at the top, then the user's holdings and how they're doing, plus a way to browse stocks and to top up fake money.
 - **Stock detail:** price, a chart, key terms (tappable), and Buy / Sell buttons.
@@ -72,6 +72,14 @@ Added during the build at the learner's request.
 - [ ] After a buy or sell, a "What happened?" breakdown shows what you paid or got, the cash left, and either what a 5% move would mean (buy) or the gain/loss you just locked in (sell).
 - [ ] Badges: **First trade** (first buy), **First sale** (first sell), **Diversified** (own 3 different stocks at once), and **Word nerd** (opened all 5 terms). Earning one shows a short, calm notice, and Home shows earned and locked badges.
 - [ ] Once you own stocks, Home shows an allocation donut: how your total value splits across cash and each stock, with a legend.
+
+### Games
+Added at final review, designed by the learner. Both use separate game money ($10,000) and never touch the practice portfolio.
+- **Risk vs. reward:** a slider sets the % in stocks (the rest is safe savings at +3% a year). Ten random years of boom (stocks +25%), flat (+2%), or crash (−30%) are applied equally to your mix, a 90% stocks mix, and a 40% stocks mix.
+  - [ ] All three paths show on one chart with year labels and end values; "New years" draws new random years.
+- **Diversification challenge:** split $10,000 across Tech, Energy, Health, and Consumer in $1,000 steps. A crash hits one random sector (−50%) and the others gain +6%.
+  - [ ] It shows your result vs. all-in on the crashed sector vs. an even split, plus a one-line takeaway; "Play again" resets it.
+  - [ ] You can't start until all $10,000 is placed.
 
 ## States and Boundaries
 - **First use:** the intro appears, the starting cash balance is shown, and there are no holdings yet.

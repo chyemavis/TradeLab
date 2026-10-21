@@ -5,6 +5,7 @@ import Home from './screens/Home.jsx'
 import Intro from './screens/Intro.jsx'
 import Explore from './screens/Explore.jsx'
 import Learn from './screens/Learn.jsx'
+import Games from './screens/Games.jsx'
 import TabBar from './components/TabBar.jsx'
 import StockDetail from './screens/StockDetail.jsx'
 import TermSheet from './components/TermSheet.jsx'
@@ -21,7 +22,7 @@ function Screens() {
   const [trade, setTrade] = useState(null) // 'buy' | 'sell' | null
   const [topUpOpen, setTopUpOpen] = useState(false)
   const [tour, setTour] = useState(null) // guided tour step index, or null when off
-  const [tab, setTab] = useState('home') // 'home' | 'explore' | 'learn'
+  const [tab, setTab] = useState('home') // 'home' | 'explore' | 'games' | 'learn'
 
   // Advances the tour when the user does what the current step asks.
   const tourEvent = (event) => setTour((s) => (s !== null && s < TOUR.length && TOUR[s].on === event ? s + 1 : s))
@@ -86,6 +87,7 @@ function Screens() {
         <>
           {tab === 'home' && <Home prices={prices} onOpen={open} onTopUp={() => setTopUpOpen(true)} />}
           {tab === 'explore' && <Explore prices={prices} onOpen={open} />}
+          {tab === 'games' && <Games />}
           {tab === 'learn' && <Learn onTerm={openTerm} onReset={resetDemo} />}
           <TabBar tab={tab} onTab={goTab} />
         </>
