@@ -9,7 +9,7 @@ Build mode: fast
 
 ## Slices
 
-- [ ] **1. You can browse stocks with live-moving prices and open one**
+- [x] **1. You can browse stocks with live-moving prices and open one**
   Becomes usable: A dark, phone-width app showing the 8 sample stocks with prices that tick every 3 seconds. Tapping one opens its detail screen with a moving chart and its key numbers.
   Why now: Sets up the project and the Look and Feel tokens right away, so every later slice lands on the real design. It also proves the price simulator, which the trading and gain/loss behavior depend on.
   PRD ref: `prd.md > Stock Detail and Prices`, `prd.md > Screens and Layout`
@@ -19,7 +19,7 @@ Build mode: fast
   Learner check: Open http://localhost:5173. Watch the prices move for a few seconds, tap a stock, and say whether it looks and feels like the minimal dark trading app you pictured.
   Commit: `Scaffold app with sample stocks, simulated prices and detail screen`
 
-- [ ] **2. You can tap a confusing term and see it explained with an animation**
+- [x] **2. You can tap a confusing term and see it explained with an animation**
   Becomes usable: On a stock's detail screen, the five terms are tappable. Each opens a sheet with a plain-English explanation and its own mini animation, plus a replay button.
   Why now: This is the kernel, so it comes before trading. If the animations don't work as explanations, we find out while there's still time to change them.
   PRD ref: `prd.md > Term Explanations (the kernel)`
