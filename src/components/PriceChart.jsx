@@ -1,26 +1,21 @@
 // Hand-drawn SVG line chart (spec.md > Stack: no chart library).
-export default function PriceChart({ data, height = 180 }) {
-  const w = 400
+// `compact` renders a tiny sparkline with no fill or end dot.
+export default function PriceChart({ data, height = 180, compact = false, width = 400 }) {
   const min = Math.min(...data)
   const max = Math.max(...data)
   const range = max - min || 1
-  const pts = data.map((v, i) => [(i / (data.length - 1)) * w, height - 8 - ((v - min) / range) * (height - 16)])
+  const pad = compact ? 2 : 10
+  const pts = data.map((v, i) => [(i / (data.length - 1)) * width, height - pad - ((v - min) / range) * (height - pad * 2)])
   const d = pts.map(([x, y], i) => `${i ? 'L' : 'M'}${x.toFixed(1)},${y.toFixed(1)}`).join(' ')
   const up = data[data.length - 1] >= data[0]
-  const color = up ? '#22C55E' : '#EF4444'
+  const color = up ? '#63E6BE' : '#FF7E8F'
   const [lx, ly] = pts[pts.length - 1]
 
   return (
-    <svg viewBox={`0 0 ${w} ${height}`} className="w-full" preserveAspectRatio="none" style={{ height }}>
-      <defs>
-        <linearGradient id="fill" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor={color} stopOpacity="0.18" />
-          <stop offset="100%" stopColor={color} stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      <path d={`${d} L${w},${height} L0,${height} Z`} fill="url(#fill)" />
-      <path d={d} fill="none" stroke={color} strokeWidth="2" vectorEffect="non-scaling-stroke" />
-      <circle cx={lx} cy={ly} r="3.5" fill={color} />
+    <svg viewBox={`0 0 ${width} ${height}`} className="w-full block" preserveAspectRatio="none" style={{ height }} aria-hidden="true">
+      {!compact && <path d={`${d} L${width},${height} L0,${height} Z`} fill={color} opacity="0.08" />}
+      <path d={d} fill="none" stroke={color} strokeWidth={compact ? 1.5 : 2.5} strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+      {!compact && <circle cx={lx} cy={ly} r="5" fill={color} stroke="#1B1640" strokeWidth="2" />}
     </svg>
   )
 }

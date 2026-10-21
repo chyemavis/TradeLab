@@ -44,18 +44,19 @@ The tradeoff you accepted: it's JavaScript rather than Python or Java.
 - **Submission:** a short demo video plus a public GitHub repository. Deployment is optional (Vercel is the likely choice); decide in `6-ship`.
 
 ## Look and Feel
-Carried from `prd.md > Look and Feel`: minimal, dark, and like a real trading app.
+Revised at the first build checkpoint: the learner found the first version "too basic" and asked for something more playful. It stays dark, and trading still works like a real app.
 - **Colors** (Tailwind theme tokens):
-  - bg `#0B0E11`, surface `#151A21`, border `#232A33`
-  - text `#E8ECF1`, muted `#8A94A3`
-  - gain `#22C55E`, loss `#EF4444`
-  - accent `#7C9CFF`, used only for tappable terms and primary buttons
-- **Type:** Inter (Google Fonts), with tabular numbers (`font-variant-numeric: tabular-nums`) so prices don't jump around. Big balance number (about 36px, semibold), body 15px.
-- **Layout:** a single phone-width column, centered (max width about 420px), with generous spacing and no clutter. Show one number per idea.
-- **Tappable terms:** shown in the accent color with a dotted underline, so they look clickable.
-- **Motion:** short and smooth (200–400ms, ease-out). Animations play once when a term sheet opens, with a "replay" button. No bouncing or confetti.
-- **Copy tone:** plain and friendly, written for a beginner.
-- **Avoid:** default AI-app styling such as purple gradients, glassy cards, emoji headers, and lots of rounded pill buttons.
+  - night `#1B1640` (background), surface `#262055`, line `#352D6E`
+  - chalk `#F3EFFF` (text), lilac `#A39DC9` (muted)
+  - gain `#63E6BE`, loss `#FF7E8F`
+  - coin `#FFC84A`, reserved for money moments and learning terms
+- **Type:** Bricolage Grotesque for numbers and headings (chunky, expressive; the balance is set huge) and Figtree for body. Tabular numbers for prices.
+- **Layout:** a single phone-width column (about 420px). Home opens with the huge balance and a live line underneath, then stocks as plain rows with tiny sparklines. No identical card grid.
+- **Tappable terms:** coin-yellow "sticker" chips, slightly tilted, with a solid offset shadow. This is the one bold, playful element.
+- **Buttons:** primary buttons use the same sticker style (solid fill, 2px chalk-dark offset shadow, which presses down on tap).
+- **Motion:** only in response to the user (sheet opening, a pressed sticker, trade confirmation), plus the term animations. 200–400ms.
+- **Copy tone:** plain and friendly, written for a beginner, in sentence case.
+- **Avoid:** all-caps eyebrow labels, identical rounded cards with soft shadows, gradient washes, "→" on buttons, and near-black with a single neon accent.
 
 ## Components
 

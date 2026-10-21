@@ -71,3 +71,5 @@ Reflection:
 Activity mode:
 
 ## Revisions
+
+- Restyled to a playful dark "sticker" look (indigo, coin yellow, Bricolage Grotesque, Figtree) — at the early checkpoint the learner found the first look too basic and asked for more playful styling; `spec.md > Look and Feel` updated.

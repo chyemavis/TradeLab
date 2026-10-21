@@ -1,10 +1,7 @@
-// Tappable term: accent color + dotted underline (spec.md > Look and Feel).
+// Tappable learning term: a coin-yellow sticker chip (spec.md > Look and Feel).
 export default function TermLink({ id, children, onOpen }) {
   return (
-    <button
-      onClick={() => onOpen(id)}
-      className="text-accent underline decoration-dotted decoration-accent/60 underline-offset-4 hover:decoration-solid"
-    >
+    <button onClick={() => onOpen(id)} className="term-chip" aria-label={`Explain ${children}`}>
       {children}
     </button>
   )

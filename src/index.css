@@ -3,9 +3,51 @@
 @tailwind utilities;
 
 body {
-  @apply bg-bg text-text font-sans antialiased;
+  @apply bg-night text-chalk font-sans antialiased;
   font-size: 15px;
 }
 .num {
   font-variant-numeric: tabular-nums;
+}
+:focus-visible {
+  outline: 2px solid theme('colors.coin');
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@layer components {
+  /* Sticker: solid fill + hard offset shadow that presses down when tapped. */
+  .sticker {
+    @apply inline-flex items-center justify-center font-display font-semibold rounded-xl px-5 py-3 transition-transform duration-100;
+    box-shadow: 3px 3px 0 #0E0B24;
+  }
+  .sticker:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0 0 0 #0E0B24;
+  }
+  .sticker:disabled {
+    @apply opacity-40 cursor-not-allowed;
+    transform: none;
+  }
+  /* Learning term chip. */
+  .term-chip {
+    @apply inline-block bg-coin text-night font-semibold rounded-md px-2 py-0.5 text-sm;
+    box-shadow: 2px 2px 0 #0E0B24;
+    transform: rotate(-2deg);
+    transition: transform 0.12s;
+  }
+  .term-chip:hover {
+    transform: rotate(0deg) scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+svg text {
+  font-family: Figtree, system-ui, sans-serif;
 }

@@ -4,16 +4,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: '#0B0E11',
-        surface: '#151A21',
-        line: '#232A33',
-        text: '#E8ECF1',
-        muted: '#8A94A3',
-        gain: '#22C55E',
-        loss: '#EF4444',
-        accent: '#7C9CFF',
+        night: '#1B1640',
+        surface: '#262055',
+        line: '#352D6E',
+        chalk: '#F3EFFF',
+        lilac: '#A39DC9',
+        gain: '#63E6BE',
+        loss: '#FF7E8F',
+        coin: '#FFC84A',
       },
-      fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+      fontFamily: {
+        sans: ['Figtree', 'system-ui', 'sans-serif'],
+        display: ['"Bricolage Grotesque"', 'Figtree', 'sans-serif'],
+      },
     },
   },
 }
