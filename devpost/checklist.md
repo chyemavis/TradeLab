@@ -29,7 +29,7 @@ Build mode: fast
   Learner check: Open a stock and tap each of the five terms. For each one, does the animation actually help you understand the idea?
   Commit: `Add animated term explanations`
 
-- [ ] **3. You can buy and sell with fake cash, and it's still there tomorrow**
+- [x] **3. You can buy and sell with fake cash, and it's still there tomorrow**
   Becomes usable: Home shows your $10,000 balance and holdings with live gain/loss. You can buy or sell from a stock's screen and top up cash. Invalid trades show an error. Everything survives a reload.
   Why now: Builds the core loop on top of the working prices and the kernel. It's also the first place saved data can go wrong.
   PRD ref: `prd.md > Buying and Selling`, `prd.md > Home and Portfolio`, `prd.md > Top Up Fake Money`, `prd.md > States and Boundaries`
