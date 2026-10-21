@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import * as rules from './portfolio.js'
 
 const Ctx = createContext(null)
@@ -13,6 +13,10 @@ function readStorage() {
 
 export function PortfolioProvider({ children }) {
   const [portfolio, setPortfolio] = useState(readStorage)
+  const [newBadge, setNewBadge] = useState(null)
+  const earnedBefore = useRef(rules.earnedBadges(portfolio))
+  // Stable so the notice's auto-dismiss timer isn't reset on every price tick.
+  const dismissBadge = useCallback(() => setNewBadge(null), [])
 
   useEffect(() => {
     try {
@@ -20,6 +24,11 @@ export function PortfolioProvider({ children }) {
     } catch {
       // Storage blocked (private mode): the app still works for this visit.
     }
+    // Announce any badge that just became earned.
+    const now = rules.earnedBadges(portfolio)
+    const fresh = now.find((id) => !earnedBefore.current.includes(id))
+    earnedBefore.current = now
+    if (fresh) setNewBadge(rules.BADGES.find((b) => b.id === fresh))
   }, [portfolio])
 
   // Runs a rule; applies it on success, returns the error message otherwise.
@@ -31,11 +40,18 @@ export function PortfolioProvider({ children }) {
 
   const value = {
     ...portfolio,
+    earned: rules.earnedBadges(portfolio),
+    newBadge,
+    dismissBadge,
     buy: (sym, n, price) => apply(rules.buy(portfolio, sym, n, price)),
     sell: (sym, n, price) => apply(rules.sell(portfolio, sym, n, price)),
     topUp: (amount) => apply(rules.topUp(portfolio, amount)),
+    learnTerm: (id) => setPortfolio((p) => rules.learnTerm(p, id)),
     markIntroSeen: () => setPortfolio((p) => ({ ...p, hasSeenIntro: true })),
-    reset: () => setPortfolio(rules.freshPortfolio()),
+    reset: () => {
+      earnedBefore.current = []
+      setPortfolio(rules.freshPortfolio())
+    },
   }
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }

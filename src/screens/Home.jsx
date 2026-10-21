@@ -2,6 +2,8 @@ import { STOCKS, bySymbol } from '../data/stocks.js'
 import { money, pct, signedMoney } from '../format.js'
 import PriceChart from '../components/PriceChart.jsx'
 import { usePortfolio } from '../state/PortfolioContext.jsx'
+import { BADGES } from '../state/portfolio.js'
+import AllocationDonut from '../components/AllocationDonut.jsx'
 
 const tone = (n) => (n >= 0 ? 'text-gain' : 'text-loss')
 
@@ -15,7 +17,8 @@ function ActionTile({ icon, label, onClick }) {
 }
 
 export default function Home({ prices, onOpen, onTopUp }) {
-  const { cash, holdings } = usePortfolio()
+  const { cash, holdings, earned } = usePortfolio()
+  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   const owned = Object.entries(holdings).map(([sym, h]) => {
     const price = prices.price(sym)
     const cost = h.shares * h.avgCost
@@ -37,7 +40,7 @@ export default function Home({ prices, onOpen, onTopUp }) {
         <p className="text-white/60 text-xs">Your practice portfolio</p>
         <div className="text-[34px] font-bold num tracking-tight mt-1">{money(cash + invested)}</div>
         {owned.length > 0 ? (
-          <p className="num text-sm mt-1 text-[#3DDBA9]">
+          <p className="num text-sm mt-1 text-[#5FE0C8]">
             {signedMoney(totalGain)} · {pct(cost ? (totalGain / cost) * 100 : 0)}
           </p>
         ) : (
@@ -57,6 +60,8 @@ export default function Home({ prices, onOpen, onTopUp }) {
 
       <div className="grid grid-cols-3 gap-3 mt-4">
         <ActionTile icon="+" label="Top up" onClick={onTopUp} />
+        <ActionTile icon="◔" label="Allocation" onClick={() => scrollTo('allocation')} />
+        <ActionTile icon="★" label="Badges" onClick={() => scrollTo('badges')} />
       </div>
 
       <section className="mt-7">
@@ -83,6 +88,38 @@ export default function Home({ prices, onOpen, onTopUp }) {
             ))}
           </ul>
         )}
+      </section>
+
+
+      {owned.length > 0 && (
+        <section id="allocation" className="mt-7 scroll-mt-4">
+          <h2 className="text-lg font-semibold">Allocation</h2>
+          <p className="text-muted text-sm">How your money is split right now.</p>
+          <div className="card p-4 mt-3">
+            <AllocationDonut slices={[...owned.map((o) => ({ label: o.sym, value: o.value })), { label: 'Cash', value: cash }]} />
+          </div>
+        </section>
+      )}
+
+      <section id="badges" className="mt-7 scroll-mt-4">
+        <div className="flex items-baseline justify-between">
+          <h2 className="text-lg font-semibold">Badges</h2>
+          <span className="text-muted text-sm num">{earned.length} of {BADGES.length}</span>
+        </div>
+        <ul className="grid grid-cols-2 gap-3 mt-3">
+          {BADGES.map((b) => {
+            const got = earned.includes(b.id)
+            return (
+              <li key={b.id} className={`card p-3 flex items-center gap-3 ${got ? '' : 'opacity-60'}`}>
+                <span className={`w-9 h-9 rounded-full grid place-items-center shrink-0 ${got ? 'bg-accent/15' : 'bg-line grayscale'}`}>{b.icon}</span>
+                <div className="min-w-0">
+                  <p className="font-semibold text-sm">{b.title}</p>
+                  <p className="text-muted text-xs">{got ? 'Earned' : b.hint}</p>
+                </div>
+              </li>
+            )
+          })}
+        </ul>
       </section>
 
       <section className="mt-7">

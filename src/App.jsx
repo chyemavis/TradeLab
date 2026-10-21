@@ -6,6 +6,7 @@ import StockDetail from './screens/StockDetail.jsx'
 import TermSheet from './components/TermSheet.jsx'
 import TradePanel from './components/TradePanel.jsx'
 import TopUp from './components/TopUp.jsx'
+import BadgeNotice from './components/BadgeNotice.jsx'
 
 function Screens() {
   const prices = usePrices()
@@ -19,6 +20,10 @@ function Screens() {
     setSymbol(sym)
     window.scrollTo(0, 0)
   }
+  const openTerm = (id) => {
+    setTerm(id)
+    portfolio.learnTerm(id)
+  }
   const holding = symbol && portfolio.holdings[symbol]
   const position = holding && { gain: holding.shares * (prices.price(symbol) - holding.avgCost) }
 
@@ -26,7 +31,7 @@ function Screens() {
     <div className="mx-auto max-w-[420px] min-h-screen">
       {symbol ? (
         <StockDetail
-          symbol={symbol} prices={prices} onBack={() => setSymbol(null)} onTerm={setTerm} position={position}
+          symbol={symbol} prices={prices} onBack={() => setSymbol(null)} onTerm={openTerm} position={position}
           actions={
             <div className="fixed bottom-5 inset-x-0 mx-auto w-fit flex gap-1 p-1.5 bg-surface rounded-full border border-line shadow-[0_8px_24px_rgb(16_24_40/0.12)] z-30">
               <button onClick={() => setTrade('buy')} className="btn rounded-full bg-gain text-white px-9 py-2.5">Buy</button>
@@ -41,11 +46,12 @@ function Screens() {
       <TermSheet termId={term} onClose={() => setTerm(null)} />
       {symbol && (
         <TradePanel
-          mode={trade} symbol={symbol} price={prices.price(symbol)} cash={portfolio.cash} owned={holding?.shares || 0}
+          mode={trade} symbol={symbol} price={prices.price(symbol)} cash={portfolio.cash} owned={holding?.shares || 0} avgCost={holding?.avgCost || 0}
           onConfirm={(n) => (trade === 'buy' ? portfolio.buy : portfolio.sell)(symbol, n, prices.price(symbol))}
           onClose={() => setTrade(null)}
         />
       )}
+      <BadgeNotice badge={portfolio.newBadge} onDone={portfolio.dismissBadge} />
       <TopUp open={topUpOpen} onTopUp={portfolio.topUp} onClose={() => setTopUpOpen(false)} />
     </div>
   )

@@ -66,6 +66,12 @@ Source: `scope.md > The Unique Kernel`.
 ### Top Up Fake Money
 - [ ] The user can add fake cash to their balance.
 
+### Learning Extras
+Added during the build at the learner's request.
+- [ ] After a buy or sell, a "What happened?" breakdown shows what you paid or got, the cash left, and either what a 5% move would mean (buy) or the gain/loss you just locked in (sell).
+- [ ] Badges: **First trade** (first buy), **First sale** (first sell), **Diversified** (own 3 different stocks at once), and **Word nerd** (opened all 5 terms). Earning one shows a short, calm notice, and Home shows earned and locked badges.
+- [ ] Once you own stocks, Home shows an allocation donut: how your total value splits across cash and each stock, with a legend.
+
 ## States and Boundaries
 - **First use:** the intro appears, the starting cash balance is shown, and there are no holdings yet.
 - **Empty portfolio:** the home screen says there are no stocks yet and points to browsing.

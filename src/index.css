@@ -10,11 +10,11 @@
   --line: 233 236 239;
   --ink: 28 31 35;
   --muted: 124 126 140;
-  --accent: 0 179 134;
+  --accent: 11 165 196;
   --gain: 0 179 134;
   --loss: 235 91 60;
-  --practice: 0 140 105;
-  --hero: 18 26 24;
+  --practice: 8 132 158;
+  --hero: 16 26 33;
   --shadow: 0 1px 2px rgb(16 24 40 / 0.04);
 
   --svg-bg: #F5F7F8;
@@ -22,7 +22,7 @@
   --svg-line: #DCE1E5;
   --svg-ink: #1C1F23;
   --svg-muted: #7C7E8C;
-  --svg-accent: #00B386;
+  --svg-accent: #0BA5C4;
   --svg-gain: #00B386;
   --svg-loss: #EB5B3C;
   --svg-coin: #F2A93B;
@@ -52,7 +52,7 @@ svg text {
   .hero {
     @apply rounded-2xl text-white overflow-hidden relative;
     background:
-      radial-gradient(120% 140% at 100% 0%, rgb(0 179 134 / 0.35), transparent 55%),
+      radial-gradient(120% 140% at 100% 0%, rgb(11 165 196 / 0.38), transparent 55%),
       rgb(var(--hero));
   }
   .btn {
@@ -61,7 +61,7 @@ svg text {
   .btn:disabled {
     @apply opacity-40 cursor-not-allowed;
   }
-  /* Explainable term: teal dotted underline + info mark. */
+  /* Explainable term: accent dotted underline + info mark. */
   .term {
     @apply inline-flex items-center gap-1 text-accent font-medium underline decoration-dotted decoration-accent/60 underline-offset-4 hover:decoration-solid;
   }

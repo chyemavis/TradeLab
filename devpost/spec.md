@@ -44,9 +44,9 @@ The tradeoff you accepted: it's JavaScript rather than Python or Java.
 - **Submission:** a short demo video plus a public GitHub repository. Deployment is optional (Vercel is the likely choice); decide in `6-ship`.
 
 ## Look and Feel
-Final direction, from a reference screenshot the learner shared during the build (a light, mint-green brokerage app): **minimalistic but aesthetic**. It replaces the earlier navy and sticker versions.
+Final direction, from a reference screenshot the learner shared during the build (a light, mint-green brokerage app; accent later changed to mint blue at the learner's request): **minimalistic but aesthetic**. It replaces the earlier navy and sticker versions.
 - **Light only** (white background), matching the reference.
-- **Colors** (CSS variables in `src/index.css`): text `#1C1F23`, muted `#7C7E8C`, lines `#E9ECEF`, mint-green accent and gains `#00B386`, losses `#EB5B3C`, and a dark hero `#121A18` with a soft green glow.
+- **Colors** (CSS variables in `src/index.css`): text `#1C1F23`, muted `#7C7E8C`, lines `#E9ECEF`, mint-blue accent `#0BA5C4`, gains green `#00B386`, losses `#EB5B3C`, and a dark hero `#101A21` with a soft mint-blue glow.
 - **Gains and losses never rely on color alone:** always ▲/▼ plus a +/− sign.
 - **Type:** DM Sans with tabular numbers. Big bold portfolio value in the hero.
 - **Home:** a "Portfolio" title with a small "Practice" pill, then the dark hero card (total value, gain line, an Invested | Cash split), then round outlined action tiles, then Holdings rows ("2 × $228.10") and Explore stocks rows with sparklines.
@@ -98,9 +98,17 @@ A `TermLink` opens the `TermSheet` with that term's title, a 2–3 sentence expl
 The exact visuals can be refined in the build, but each must illustrate its own idea.
 PRD ref: `prd.md > Term Explanations (the kernel)`.
 
+### Learning Extras
+- `explainTrade({ mode, symbol, shares, price, cashAfter, avgCost })` in `portfolio.js` returns the plain-English lines for the "What happened?" view in `TradePanel`. The panel stays open on that view until you tap "Got it".
+- The saved portfolio adds `stats: { buys, sells }` and `learnedTerms: []`. Opening a term sheet records its id.
+- `earnedBadges(portfolio)` derives badges from that state; nothing about badges is stored separately. The provider compares before and after each change and shows a short notice for new badges.
+- `AllocationDonut`: a hand-made SVG donut of cash plus each holding's current value.
+
+PRD ref: `prd.md > Learning Extras`.
+
 ## Data Model
 - **`stocks.js`** (fixed file): `{ symbol, name, basePrice, marketCap, peRatio, dividendYield, volatility }` × 8, for example AAPL, MSFT, TSLA, KO, NVDA, AMZN, JNJ, DIS. These are **sample data**: realistic but rounded and not live. Labeled as such in the app.
-- **Portfolio (`localStorage` key `pp:portfolio`):** `{ cash: 10000, holdings: { AAPL: { shares, avgCost } }, hasSeenIntro: false }`. Updated by store actions, and survives reloads.
+- **Portfolio (`localStorage` key `pp:portfolio`):** `{ cash: 10000, holdings: { AAPL: { shares, avgCost } }, hasSeenIntro: false, stats: { buys, sells }, learnedTerms: [] }` (missing fields default, so older saves still load). Updated by store actions, and survives reloads.
 - **Prices:** held in memory only, updated every 3 seconds, and restarted on reload.
 - **Gain/loss:** computed from the current price and `avgCost`, never stored.
 - **Term text:** stored in `terms.js` as `{ id, title, explanation }`.

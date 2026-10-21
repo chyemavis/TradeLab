@@ -39,7 +39,17 @@ Build mode: fast
   Learner check: Buy 2 shares of something, sell 1, then try to buy far more than you can afford. Reload the page and confirm your cash and shares are still there.
   Commit: `Add buy/sell, portfolio, top-up and persistence`
 
-- [ ] **4. First-time visitors get an intro and an optional guided tutorial**
+- [x] **4. Learning extras: what happened, badges, and allocation**
+  Becomes usable: After each trade, a "What happened?" breakdown explains it in plain numbers. Achievement badges (first trade, first sale, three different stocks, all five terms learned) unlock with a calm notice and show on Home. An allocation donut shows how your money is split.
+  Why now: The learner asked for these at the checkpoint after seeing the trading flow. They build directly on slice 3's portfolio.
+  PRD ref: `prd.md > Learning Extras`
+  Spec ref: `spec.md > Learning Extras`, `spec.md > Data Model`
+  Build: `explainTrade` and `earnedBadges` rules in `portfolio.js`; track buys, sells, and learned terms in the saved portfolio; "What happened?" view in `TradePanel`; `Badges` and `AllocationDonut` on Home; badge notice.
+  Verify (mechanical): `npm run build` succeeds; a node check of `explainTrade` and `earnedBadges`; old saved data still loads; the dev server compiles CSS with no errors.
+  Learner check: Buy a stock and read the breakdown, sell it, open all five terms, and buy three different stocks. Check that the badges unlock and the donut shows your split.
+  Commit: `Add trade breakdown, badges and allocation donut`
+
+- [ ] **5. First-time visitors get an intro and an optional guided tutorial**
   Becomes usable: A fresh visit shows 2–3 intro cards, then Tutorial or Skip. The tutorial's hint bar walks you through a buy and a sell on the real screens and doesn't come back after it's done.
   Why now: The tutorial guides people through the real trading flow, so that flow has to exist first.
   PRD ref: `prd.md > Intro and Guided Tutorial`
@@ -76,3 +86,4 @@ Activity mode:
 - Replaced the playful sticker look with the learner's "calm, confident, clear" fintech brief (navy plus light mode, teal accent, DM Sans, cards, ▲/▼ on all gains and losses, Practice mode badge) — the learner supplied a detailed design brief after trying the playful version; `prd.md > Look and Feel` and `spec.md > Look and Feel` updated.
 - Restart the dev server after editing `tailwind.config.js` — the running Vite server didn't pick up config changes, so new color/font classes failed in the browser even though `npm run build` passed. CSS is now verified through the dev server.
 - Switched to a light, mint-green brokerage style with a dark hero card and floating Buy/Sell pill, dropping dark mode — the learner shared a reference app screenshot ("minimalistic but aesthetic"); Look and Feel updated in PRD and spec.
+- Added slice 4, Learning extras ("What happened?" breakdown, badges, allocation donut), and renumbered the tutorial to 5 — the learner chose to add the three features suggested by their design brief; accent changed from mint green to mint blue.
