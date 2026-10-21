@@ -71,6 +71,7 @@ Build mode: fast
 - [x] Games tab with Risk vs. reward and Diversification challenge — learner-designed games added at final review (`prd.md > Games`)
 - [x] Made both games animated and game-like (year-by-year race with weather banners, crash shake and podium; coin baskets with a spotlight spin, lightning strike, live total and star rating) — learner: "more animation like, like a real game"
 - [x] Games open on a full-screen landscape stage (rotated on upright phones; fullscreen + landscape lock where supported) with colorful weather skies, runner avatars, storm cloud, lightning flash, coin physics and confetti — learner: "flipped to horizontal mode", "more animations and colours"
+- [x] Rebuild games as round-based 5-minute games (15-Year Race; Don't Drop the Coins), trimmed version — learner design brief; `prd.md > Games`
 - [ ] Final review complete — feedback resolved and learner confirms ready to ship
 
 ## Code Tour and App Map

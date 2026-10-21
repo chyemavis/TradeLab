@@ -74,12 +74,16 @@ Added during the build at the learner's request.
 - [ ] Once you own stocks, Home shows an allocation donut: how your total value splits across cash and each stock, with a legend.
 
 ### Games
-Added at final review, designed by the learner. Both use separate game money ($10,000) and never touch the practice portfolio.
-- **Risk vs. reward:** a slider sets the % in stocks (the rest is safe savings at +3% a year). Ten random years of boom (stocks +25%), flat (+2%), or crash (−30%) are applied equally to your mix, a 90% stocks mix, and a 40% stocks mix.
-  - [ ] All three paths show on one chart with year labels and end values; "New years" draws new random years.
-- **Diversification challenge:** split $10,000 across Tech, Energy, Health, and Consumer in $1,000 steps. A crash hits one random sector (−50%) and the others gain +6%.
-  - [ ] It shows your result vs. all-in on the crashed sector vs. an even split, plus a one-line takeaway; "Play again" resets it.
-  - [ ] You can't start until all $10,000 is placed.
+Designed by the learner at final review (trimmed version agreed: no Level 2 and no "hot tip" wildcard). Both use separate game money and never touch the practice portfolio. Each takes about 4–5 minutes, and both have an **Auto-play** option for quick demos.
+- **The 15-Year Race (risk vs. reward):** a cautious/balanced/bold shortcut sets the starting stock mix; the goal is "Beat 🐢 and 🐆, or reach $20,000." Each year has a news hint, a decision on a gentle 8-second timer (hold, nudge the mix ±10%, or add $1,000; time-out = hold), then a market reveal and a one-line debrief. Rivals: 🐆 90% stocks, 🐢 40% stocks.
+  - [ ] Year sequences are stylized from real patterns (labeled), and each one includes at least one crash and one boom.
+  - [ ] Life event in year 5: a $2,000 car repair, paid by selling stocks, using savings, or skipping contributions for 2 years.
+  - [ ] Panic moment in year 9 after a −25% drop: sell everything, hold, or buy more. Year 10 rebounds.
+  - [ ] End: stars for goal reached, beating 🐆 on risk-adjusted return, and never panic-selling; a podium; an "if you'd never touched it" comparison line; and one badge (Steady Hands / Panic Seller / Bold Buyer).
+- **Don't Drop the Coins (diversification):** 6 rounds. Each round gives a clue, then you place 10 coins (each coin = 10% of your current money), then the market runs and you see the result and lesson. Money carries forward between rounds.
+  - [ ] A risk meter shows how concentrated you are, with a soft warning at 7+ coins in one basket.
+  - [ ] Progression: rounds 1–2 hit one sector; rounds 3–4 bring a boom plus a fall, or two hits; round 5 is a market-wide crash where a surprise Bonds basket appears; round 6 combines effects.
+  - [ ] End: ⭐ survived, ⭐⭐ ended with growth, ⭐⭐⭐ growth and at least 3 coins in Bonds during the crash; the total counts up; and a comparison with keeping everything in one basket.
 
 ## States and Boundaries
 - **First use:** the intro appears, the starting cash balance is shown, and there are no holdings yet.

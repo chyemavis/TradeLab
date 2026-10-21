@@ -108,7 +108,8 @@ PRD ref: `prd.md > Term Explanations (the kernel)`.
 PRD ref: `prd.md > Learning Extras`.
 
 ### Games
-- `src/games/sim.js` holds the pure rules: `randomYears(n)`, `runMix(stockPct, years)`, `sectorCrash(allocation, crashed)`. They can be checked with node.
+- `src/games/sim.js` holds the pure rules, checkable with node. **Race:** 3 stylized 15-year `ERAS` (labeled "loosely inspired by"; year 9 is always −25% and year 10 rebounds), `growYear`, `rebalance`, `pay`, `panicChoice`, `rivalPath`, `riskAdjusted`, `raceStars`, `raceBadge`. **Coins:** 6 `ROUNDS` (clue, per-sector effects, lesson), `sectorsFor` (Bonds from round 5), `playRound`, `concentration`, `allInPath`, `coinStars`.
+- Each game screen is a phase state machine (race: setup → news → decide/life → reveal → panic → debrief → end; coins: allocate → storm → result, ×6, then end). Auto-play shortens the timings and picks defaults (hold / use savings / even split).
 - `src/games/GameStage.jsx`: a full-screen 16:9 landscape stage. On upright phones it's rotated 90° with CSS; on touch devices it also tries `requestFullscreen()` + `screen.orientation.lock('landscape')`, which only some browsers support. `src/games/Effects.jsx` holds the shared sky, sun, clouds, rain, flash, and confetti.
 - `src/screens/Games.jsx` is the game picker; `src/games/RiskReward.jsx` and `src/games/Diversify.jsx` are the games. Game state lives in memory only and isn't saved.
 
