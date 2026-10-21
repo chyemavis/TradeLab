@@ -109,6 +109,7 @@ PRD ref: `prd.md > Learning Extras`.
 
 ### Games
 - `src/games/sim.js` holds the pure rules: `randomYears(n)`, `runMix(stockPct, years)`, `sectorCrash(allocation, crashed)`. They can be checked with node.
+- `src/games/GameStage.jsx`: a full-screen 16:9 landscape stage. On upright phones it's rotated 90° with CSS; on touch devices it also tries `requestFullscreen()` + `screen.orientation.lock('landscape')`, which only some browsers support. `src/games/Effects.jsx` holds the shared sky, sun, clouds, rain, flash, and confetti.
 - `src/screens/Games.jsx` is the game picker; `src/games/RiskReward.jsx` and `src/games/Diversify.jsx` are the games. Game state lives in memory only and isn't saved.
 
 PRD ref: `prd.md > Games`.

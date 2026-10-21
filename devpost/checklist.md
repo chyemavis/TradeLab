@@ -70,6 +70,7 @@ Build mode: fast
 - [x] Moved Top up into the dark portfolio card as a button; removed the Top up / Explore / Learn tiles from Home (redundant with the tab bar) — learner request
 - [x] Games tab with Risk vs. reward and Diversification challenge — learner-designed games added at final review (`prd.md > Games`)
 - [x] Made both games animated and game-like (year-by-year race with weather banners, crash shake and podium; coin baskets with a spotlight spin, lightning strike, live total and star rating) — learner: "more animation like, like a real game"
+- [x] Games open on a full-screen landscape stage (rotated on upright phones; fullscreen + landscape lock where supported) with colorful weather skies, runner avatars, storm cloud, lightning flash, coin physics and confetti — learner: "flipped to horizontal mode", "more animations and colours"
 - [ ] Final review complete — feedback resolved and learner confirms ready to ship
 
 ## Code Tour and App Map

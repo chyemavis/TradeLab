@@ -1,42 +1,44 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useAnimationControls } from 'framer-motion'
 import { money } from '../format.js'
-import { GAME_CASH, SCENARIOS, randomYears, runMix } from './sim.js'
+import { GAME_CASH, randomYears, runMix } from './sim.js'
+import { SKIES, Sun, Clouds, Rain, Flash, Confetti } from './Effects.jsx'
 
-const W = 340
-const H = 190
+const W = 520
+const H = 240
 const YEARS = 10
-const TICK_MS = 1000
+const TICK_MS = 1100
 const RUNNERS = [
-  { id: 'you', color: 'var(--svg-accent)' },
-  { id: 90, label: '90% stocks', color: '#6C63FF' },
-  { id: 40, label: '40% stocks', color: '#F2A93B' },
+  { id: 'you', icon: '🚀', color: '#5FF2D0' },
+  { id: 90, icon: '🐆', label: '90% stocks', color: '#FF5D8F' },
+  { id: 40, icon: '🐢', label: '40% stocks', color: '#FFD43B' },
 ]
-const WEATHER = {
-  boom: { icon: '☀️', text: 'Boom year! Stocks +25%', cls: 'bg-gain text-white' },
-  flat: { icon: '☁️', text: 'Flat year. Stocks +2%', cls: 'bg-line text-ink' },
-  crash: { icon: '⛈️', text: 'Crash! Stocks −30%', cls: 'bg-loss text-white' },
+const BANNER = {
+  boom: { text: '☀️ Boom year! Stocks +25%', cls: 'bg-[#FFD43B] text-[#3A2A00]' },
+  flat: { text: '☁️ Flat year. Stocks +2%', cls: 'bg-white text-[#3A4660]' },
+  crash: { text: '⛈️ Crash! Stocks −30%', cls: 'bg-[#FF3B5C] text-white' },
 }
 const MEDALS = ['🥇', '🥈', '🥉']
 
-// Risk vs. reward, played as a year-by-year race between three mixes.
+// Risk vs. reward, played as a year-by-year race through changing market weather.
 export default function RiskReward() {
   const [pct, setPct] = useState(60)
   const [years, setYears] = useState(null)
-  const [shown, setShown] = useState(0) // how many years have played
+  const [shown, setShown] = useState(0)
   const shake = useAnimationControls()
   const playing = years && shown < YEARS
   const finished = years && shown === YEARS
+  const weather = years && shown > 0 ? years[shown - 1] : null
 
   useEffect(() => {
     if (!playing) return
-    const id = setTimeout(() => setShown((n) => n + 1), shown === 0 ? 400 : TICK_MS)
+    const id = setTimeout(() => setShown((n) => n + 1), shown === 0 ? 500 : TICK_MS)
     return () => clearTimeout(id)
   }, [playing, shown])
 
   useEffect(() => {
-    if (years && shown > 0 && years[shown - 1] === 'crash') shake.start({ x: [0, -10, 9, -6, 4, 0], transition: { duration: 0.45 } })
-  }, [shown, years, shake])
+    if (weather === 'crash') shake.start({ x: [0, -14, 12, -8, 5, 0], transition: { duration: 0.5 } })
+  }, [shown, weather, shake])
 
   const start = () => {
     setYears(randomYears(YEARS))
@@ -46,121 +48,126 @@ export default function RiskReward() {
   const paths = years ? RUNNERS.map((r) => ({ ...r, label: r.label || `You (${pct}%)`, path: runMix(r.id === 'you' ? pct : r.id, years) })) : []
   const all = paths.flatMap((p) => p.path)
   const min = Math.min(GAME_CASH * 0.6, ...all)
-  const max = Math.max(GAME_CASH * 1.4, ...all)
-  const y = (v) => H - 14 - ((v - min) / (max - min)) * (H - 28)
-  const x = (i) => 8 + (i / YEARS) * (W - 60)
+  const max = Math.max(GAME_CASH * 1.5, ...all)
+  const y = (v) => H - 18 - ((v - min) / (max - min)) * (H - 40)
+  const x = (i) => 12 + (i / YEARS) * (W - 40)
   const line = (path) => path.slice(0, shown + 1).map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ')
-  const now = paths.map((p) => ({ ...p, value: p.path[shown] })).sort((a, b) => b.value - a.value)
-  const yourPlace = now.findIndex((p) => p.id === 'you')
-  const current = years && shown > 0 ? WEATHER[years[shown - 1]] : null
-
-  if (!years) {
-    return (
-      <div>
-        <p className="text-muted leading-relaxed">
-          Set your mix, then race a <b className="text-ink">90% stocks</b> player and a <b className="text-ink">40% stocks</b> player through 10 random market years. The rest of your money sits in savings at +3% a year.
-        </p>
-        <div className="hero p-5 mt-4">
-          <div className="flex justify-between items-end">
-            <div>
-              <p className="text-white/60 text-xs">Your mix</p>
-              <p className="text-4xl font-bold num">{pct}%<span className="text-base font-medium text-white/60"> stocks</span></p>
-            </div>
-            <p className="text-white/60 text-sm num">{100 - pct}% savings</p>
-          </div>
-          <div className="flex h-3 rounded-full overflow-hidden mt-4 bg-white/10">
-            <motion.div className="bg-[#5FD3EA]" animate={{ width: `${pct}%` }} transition={{ type: 'spring', stiffness: 300, damping: 30 }} />
-          </div>
-          <input type="range" min="0" max="100" step="10" value={pct} onChange={(e) => setPct(+e.target.value)}
-            className="w-full mt-3 accent-[#5FD3EA]" aria-label="Percent in stocks" />
-          <div className="flex justify-between text-xs text-white/50"><span>🛡️ Safer</span><span>Riskier 🚀</span></div>
-        </div>
-        <motion.button whileTap={{ scale: 0.96 }} onClick={start} className="btn w-full mt-4 bg-accent text-white text-lg">Start the race</motion.button>
-      </div>
-    )
-  }
+  const ranked = paths.map((p) => ({ ...p, value: p.path[shown] })).sort((a, b) => b.value - a.value)
+  const yourPlace = ranked.findIndex((p) => p.id === 'you')
 
   return (
-    <motion.div animate={shake}>
-      <div className="flex items-center justify-between">
-        <p className="text-muted text-sm">Year</p>
-        <p className="text-muted text-sm num">{shown} / {YEARS}</p>
-      </div>
-      <div className="h-1.5 bg-line rounded-full mt-1 overflow-hidden">
-        <motion.div className="h-full bg-accent" animate={{ width: `${(shown / YEARS) * 100}%` }} />
+    <motion.div animate={shake} className="h-full grid grid-cols-[minmax(0,1fr)_minmax(0,1.7fr)] gap-3">
+      {/* Left panel: setup, live leaderboard, or podium */}
+      <div className="rounded-2xl bg-black/25 backdrop-blur p-3 flex flex-col min-h-0">
+        {!years && (
+          <>
+            <p className="text-white/70 text-sm leading-snug">Set your mix and race a 🐆 90% stocks player and a 🐢 40% stocks player through 10 market years.</p>
+            <p className="text-5xl font-black num mt-3 bg-gradient-to-r from-[#5FF2D0] to-[#5FD3EA] bg-clip-text text-transparent">{pct}%</p>
+            <p className="text-white/70 text-sm">in stocks · {100 - pct}% safe savings (+3%/yr)</p>
+            <input type="range" min="0" max="100" step="10" value={pct} onChange={(e) => setPct(+e.target.value)}
+              className="w-full mt-3 accent-[#5FF2D0]" aria-label="Percent in stocks" />
+            <div className="flex justify-between text-xs text-white/60"><span>🛡️ Safer</span><span>Riskier 🚀</span></div>
+            <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.94 }} onClick={start}
+              className="mt-auto rounded-xl py-3 font-black text-lg text-[#14103A] bg-gradient-to-r from-[#5FF2D0] to-[#FFD43B] shadow-[0_6px_0_#0E8C78]">
+              START RACE
+            </motion.button>
+          </>
+        )}
+
+        {years && !finished && (
+          <>
+            <p className="text-xs text-white/60">Year {shown} of {YEARS}</p>
+            <div className="h-2 bg-white/15 rounded-full mt-1 overflow-hidden">
+              <motion.div className="h-full bg-gradient-to-r from-[#5FF2D0] to-[#FFD43B]" animate={{ width: `${(shown / YEARS) * 100}%` }} />
+            </div>
+            <ul className="mt-3 space-y-2">
+              {ranked.map((p, rank) => (
+                <motion.li layout key={p.id} transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                  className={`flex items-center gap-2 rounded-xl px-2 py-1.5 ${p.id === 'you' ? 'bg-white/20 ring-1 ring-[#5FF2D0]' : 'bg-white/5'}`}>
+                  <span className="text-xs w-3 text-white/60">{rank + 1}</span>
+                  <span className="text-lg">{p.icon}</span>
+                  <span className="flex-1 text-sm truncate">{p.label}</span>
+                  <span className="num text-sm font-bold" style={{ color: p.color }}>{money(p.value).replace(/\.\d+$/, '')}</span>
+                </motion.li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        {finished && (
+          <>
+            <p className="text-center font-black text-lg">🏁 {yourPlace === 0 ? 'YOU WIN!' : `You came ${['1st', '2nd', '3rd'][yourPlace]}`}</p>
+            <div className="flex items-end justify-center gap-2 mt-2 flex-1 min-h-0">
+              {[1, 0, 2].map((rank) => {
+                const p = ranked[rank]
+                return (
+                  <motion.div key={p.id} className="flex-1 text-center" initial={{ y: 60, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.2 + (2 - rank) * 0.25, type: 'spring', bounce: 0.5 }}>
+                    <div className="text-xl">{MEDALS[rank]}</div>
+                    <div className="text-2xl">{p.icon}</div>
+                    <p className="num text-xs font-bold">{money(p.value).replace(/\.\d+$/, '')}</p>
+                    <div className="mt-1 rounded-t-lg" style={{ height: [64, 44, 28][rank], background: p.color }} />
+                  </motion.div>
+                )
+              })}
+            </div>
+            <p className="text-xs text-white/80 mt-2 leading-snug">
+              {years.filter((v) => v === 'crash').length >= 3
+                ? 'Lots of crashes, so safer mixes held up better.'
+                : 'Mostly good years, so riskier mixes pulled ahead. Real markets never tell you which decade you get.'}
+            </p>
+            <div className="flex gap-2 mt-2">
+              <motion.button whileTap={{ scale: 0.94 }} onClick={start} className="flex-1 rounded-xl py-2 font-bold text-[#14103A] bg-[#5FF2D0] shadow-[0_4px_0_#0E8C78]">Race again</motion.button>
+              <motion.button whileTap={{ scale: 0.94 }} onClick={() => setYears(null)} className="flex-1 rounded-xl py-2 font-bold bg-white/15">Change mix</motion.button>
+            </div>
+          </>
+        )}
       </div>
 
-      <div className="h-12 mt-3 relative">
+      {/* Right panel: the sky and the race track */}
+      <div className="relative rounded-2xl overflow-hidden min-h-0">
+        <AnimatePresence>
+          <motion.div key={weather || 'start'} className="absolute inset-0" style={{ background: SKIES[weather || 'start'] }}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }} />
+        </AnimatePresence>
+        {weather === 'boom' && <Sun />}
+        {(weather === 'flat' || weather === 'crash') && <Clouds dark={weather === 'crash'} />}
+        {weather === 'crash' && <Rain />}
+        {weather === 'crash' && <Flash id={shown} />}
+        {finished && yourPlace === 0 && <Confetti />}
+
         <AnimatePresence mode="popLayout">
-          {current && !finished && (
-            <motion.div key={shown} className={`absolute inset-x-0 mx-auto w-fit rounded-full px-4 py-2 font-semibold shadow ${current.cls}`}
-              initial={{ scale: 0.4, opacity: 0, y: -10 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ type: 'spring', stiffness: 500, damping: 22 }}>
-              <span className="text-xl mr-1">{current.icon}</span> {current.text}
+          {weather && !finished && (
+            <motion.div key={shown} className={`absolute top-3 inset-x-0 mx-auto w-fit z-10 rounded-full px-4 py-1.5 font-black shadow-lg ${BANNER[weather].cls}`}
+              initial={{ scale: 0.2, rotate: -8, opacity: 0 }} animate={{ scale: 1, rotate: 0, opacity: 1 }} exit={{ scale: 0.6, opacity: 0, y: -20 }}
+              transition={{ type: 'spring', stiffness: 500, damping: 18 }}>
+              {BANNER[weather].text}
             </motion.div>
           )}
-          {finished && (
-            <motion.p key="done" className="text-center font-bold text-lg" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>🏁 Race over!</motion.p>
-          )}
         </AnimatePresence>
-      </div>
 
-      <div className="card p-2">
-        <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label="Race of three mixes over 10 years">
-          <line x1="8" x2={W - 52} y1={y(GAME_CASH)} y2={y(GAME_CASH)} stroke="var(--svg-line)" strokeDasharray="4 4" />
-          <text x={W - 48} y={y(GAME_CASH) + 4} fontSize="9" fill="var(--svg-muted)">start</text>
-          {years.slice(0, shown).map((yr, i) => (
-            <rect key={i} x={x(i)} y="0" width={x(1) - x(0)} height={H} fill={yr === 'crash' ? 'var(--svg-loss)' : yr === 'boom' ? 'var(--svg-gain)' : 'transparent'} opacity="0.06" />
-          ))}
+        <svg viewBox={`0 0 ${W} ${H}`} className="absolute inset-0 w-full h-full" preserveAspectRatio="none">
+          <line x1="12" x2={W - 28} y1={y(GAME_CASH)} y2={y(GAME_CASH)} stroke="white" strokeOpacity="0.5" strokeDasharray="6 6" vectorEffect="non-scaling-stroke" />
           {paths.map((p) => (
-            <g key={p.id}>
-              <path d={line(p.path)} fill="none" stroke={p.color} strokeWidth={p.id === 'you' ? 3.5 : 2.2} strokeLinejoin="round" strokeLinecap="round" />
-              <motion.circle r={p.id === 'you' ? 6 : 4.5} fill={p.color} stroke="white" strokeWidth="2"
-                animate={{ cx: x(shown), cy: y(p.path[shown]) }} transition={{ duration: 0.5, ease: 'easeOut' }} />
-            </g>
+            <path key={p.id} d={line(p.path)} fill="none" stroke={p.color} strokeWidth={p.id === 'you' ? 5 : 3.5}
+              strokeLinejoin="round" strokeLinecap="round" vectorEffect="non-scaling-stroke" style={{ filter: `drop-shadow(0 0 6px ${p.color})` }} />
           ))}
         </svg>
+        {/* Runner avatars ride the tip of each line */}
+        {paths.map((p) => (
+          <motion.span key={p.id} className="absolute text-2xl -translate-x-1/2 -translate-y-1/2 z-10 drop-shadow"
+            animate={{ left: `${(x(shown) / W) * 100}%`, top: `${(y(p.path[shown]) / H) * 100}%` }} transition={{ duration: 0.55, ease: 'easeOut' }}>
+            {p.icon}
+          </motion.span>
+        ))}
+        {!years && (
+          <div className="absolute inset-0 grid place-items-center text-center px-6">
+            <motion.p animate={{ y: [0, -6, 0] }} transition={{ duration: 2, repeat: Infinity }} className="text-xl font-black drop-shadow">
+              🚀 🐆 🐢<br />Ready at $10,000
+            </motion.p>
+          </div>
+        )}
       </div>
-
-      {!finished ? (
-        <ul className="mt-3 space-y-2">
-          {now.map((p, rank) => (
-            <motion.li layout key={p.id} className={`flex items-center gap-2 rounded-xl px-3 py-2 ${p.id === 'you' ? 'bg-accent/10' : ''}`}>
-              <span className="w-5 text-muted num">{rank + 1}</span>
-              <span className="w-2.5 h-2.5 rounded-full" style={{ background: p.color }} />
-              <span className={`flex-1 ${p.id === 'you' ? 'font-semibold' : ''}`}>{p.label}</span>
-              <span className="num font-semibold">{money(p.value)}</span>
-            </motion.li>
-          ))}
-        </ul>
-      ) : (
-        <div className="mt-4">
-          <div className="flex items-end justify-center gap-2">
-            {[1, 0, 2].map((rank) => {
-              const p = now[rank]
-              return (
-                <motion.div key={p.id} className="flex-1 text-center"
-                  initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 + (2 - rank) * 0.25, type: 'spring' }}>
-                  <div className="text-2xl">{MEDALS[rank]}</div>
-                  <p className={`text-xs mt-1 ${p.id === 'you' ? 'font-bold text-accent' : 'text-muted'}`}>{p.label}</p>
-                  <p className="num text-sm font-semibold">{money(p.value).replace(/\.\d+$/, '')}</p>
-                  <div className={`mt-1 rounded-t-xl ${p.id === 'you' ? 'bg-accent' : 'bg-line'}`} style={{ height: [72, 52, 36][rank] }} />
-                </motion.div>
-              )
-            })}
-          </div>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }} className="mt-4 leading-relaxed">
-            {yourPlace === 0 ? 'You won this race. ' : `You came ${['first', 'second', 'third'][yourPlace]}. `}
-            {years.filter((v) => v === 'crash').length >= 3
-              ? 'Lots of crashes this time, so safer mixes held up better.'
-              : 'Mostly good years, so riskier mixes pulled ahead. In real markets you never know which kind of decade you get.'}
-          </motion.p>
-          <div className="flex gap-3 mt-4">
-            <motion.button whileTap={{ scale: 0.96 }} onClick={start} className="btn flex-1 bg-accent text-white">Race again</motion.button>
-            <motion.button whileTap={{ scale: 0.96 }} onClick={() => setYears(null)} className="btn flex-1 bg-line text-ink">Change mix</motion.button>
-          </div>
-        </div>
-      )}
     </motion.div>
   )
 }
