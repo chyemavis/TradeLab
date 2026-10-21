@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Practice Portfolio Spec</title>
+<style>
+:root{--bg:#0B0E11;--card:#151A21;--line:#232A33;--text:#E8ECF1;--muted:#8A94A3;--green:#22C55E;--red:#EF4444;--blue:#7C9CFF;--amber:#d29922}
+@media (prefers-color-scheme: light){:root{--bg:#f6f8fa;--card:#fff;--line:#d0d7de;--text:#1f2328;--muted:#59636e;--green:#1a7f37;--red:#cf222e;--blue:#3b5bdb;--amber:#9a6700}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:920px;margin:0 auto;padding:32px 16px 64px}
+.tag{display:inline-block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);border:1px solid var(--amber);border-radius:999px;padding:2px 10px}
+h1{font-size:2rem;margin:12px 0 4px}
+.lede{color:var(--muted);margin:0 0 20px;font-size:1.1rem}
+h2{font-size:1.15rem;margin:32px 0 12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+.card p{margin:.3em 0}
+svg{width:100%;height:auto;display:block}
+svg text{fill:var(--text);font:12px system-ui,sans-serif}
+svg .sub{fill:var(--muted);font-size:10.5px}
+svg .box{fill:var(--card);stroke:var(--line);stroke-width:1.5;transition:stroke .2s}
+svg .box.on{stroke:var(--green);stroke-width:2.5}
+svg .store{fill:none;stroke:var(--blue);stroke-dasharray:4 3}
+svg .arr{stroke:var(--muted);stroke-width:1.5;fill:none;marker-end:url(#a)}
+.stepper{display:flex;gap:8px;align-items:center;margin-top:14px;flex-wrap:wrap}
+button{background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:6px 14px;font:inherit;cursor:pointer}
+button:hover{border-color:var(--blue)}
+#stepText{flex:1;min-width:220px}
+#stepText b{color:var(--green)}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:10px}
+summary{cursor:pointer;padding:12px 20px;font-weight:600;list-style:none;display:flex;gap:8px;align-items:center}
+summary::after{content:"+";color:var(--muted);margin-left:auto}
+details[open] summary::after{content:"−"}
+summary code{font-weight:400;font-size:12px;color:var(--muted)}
+details .body{padding:0 20px 14px}
+.ref{font-size:13px;color:var(--blue)}
+code,pre{font-family:ui-monospace,Consolas,monospace;font-size:13px}
+pre{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;overflow-x:auto;margin:0}
+.sw{display:flex;flex-wrap:wrap;gap:8px}
+.sw div{display:flex;align-items:center;gap:6px;font-size:13px}
+.sw span{width:22px;height:22px;border-radius:5px;border:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+ul{margin:.3em 0;padding-left:20px}
+.g{color:var(--green)}.r{color:var(--red)}
+</style>
+</head>
+<body>
+<main>
+<span class="tag">Spec · approved</span>
+<h1>Practice Portfolio</h1>
+<p class="lede">A browser-only React app: simulated prices, a portfolio saved in localStorage, and five animated term explanations.</p>
+
+<h2>How it works</h2>
+<div class="card"><p>One web page that runs entirely in your browser, with <b>no server and no account</b>. The screens are React components. A fixed file holds 8 sample stocks. A <b>price simulator</b> nudges prices every 3 seconds. Your cash and holdings are saved in <b>localStorage</b>, a small store the browser keeps for this site, so they survive closing the tab. Five small animations make the kernel.</p></div>
+
+<h2>Architecture &amp; journey</h2>
+<div class="card">
+<svg viewBox="0 0 860 300" role="img" aria-label="Architecture: screens read from the portfolio store and price simulator; the store saves to localStorage; static data files feed stocks and terms.">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#8A94A3"/></marker></defs>
+<text class="sub" x="20" y="22">SCREENS &amp; OVERLAYS</text>
+<g id="screens"></g>
+<text class="sub" x="20" y="168">STATE</text>
+<rect class="box" id="s0" x="120" y="180" width="220" height="50" rx="8"/><text x="230" y="202" text-anchor="middle">Portfolio store</text><text class="sub" x="230" y="219" text-anchor="middle">cash · holdings · buy/sell/topUp</text>
+<rect class="box" id="s1" x="520" y="180" width="220" height="50" rx="8"/><text x="630" y="202" text-anchor="middle">Price simulator</text><text class="sub" x="630" y="219" text-anchor="middle">random walk, every 3s</text>
+<rect class="store" x="120" y="252" width="220" height="38" rx="8"/><text x="230" y="276" text-anchor="middle">localStorage (pp:portfolio)</text>
+<rect class="store" x="400" y="252" width="340" height="38" rx="8"/><text x="570" y="276" text-anchor="middle">stocks.js (8 sample) · terms.js (5)</text>
+<path class="arr" d="M230,230V248"/><path class="arr" d="M600,252V234"/>
+<path class="arr" d="M230,178V110"/><path class="arr" d="M630,178V110"/>
+</svg>
+<div class="stepper"><button id="prev">← Back</button><button id="next">Next →</button><div id="stepText"></div></div>
+</div>
+
+<h2>Stack</h2>
+<div class="grid">
+<div class="card"><b>React 18 + Vite 5</b><p class="ref"><a href="https://react.dev" style="color:inherit">react.dev</a> · <a href="https://vite.dev" style="color:inherit">vite.dev</a></p><p>The app and its dev server.</p></div>
+<div class="card"><b>Tailwind CSS 3</b><p class="ref"><a href="https://tailwindcss.com/docs" style="color:inherit">tailwindcss.com</a></p><p>Exact colors and spacing, which serves your design goal.</p></div>
+<div class="card"><b>Framer Motion 11</b><p class="ref"><a href="https://www.framer.com/motion/" style="color:inherit">framer.com/motion</a></p><p>Mini animations and sliding sheets.</p></div>
+<div class="card"><b>Hand-made SVG chart</b><p>One line chart doesn't need a library.</p></div>
+</div>
+<p style="color:var(--muted);font-size:14px">Versions are unverified; confirm them at setup.</p>
+
+<h2>Look &amp; feel tokens</h2>
+<div class="card">
+<div class="sw">
+<div><span style="background:#0B0E11"></span>bg</div><div><span style="background:#151A21"></span>surface</div><div><span style="background:#232A33"></span>border</div><div><span style="background:#E8ECF1"></span>text</div><div><span style="background:#8A94A3"></span>muted</div><div><span style="background:#22C55E"></span>gain</div><div><span style="background:#EF4444"></span>loss</div><div><span style="background:#7C9CFF"></span>accent</div>
+</div>
+<ul><li>Inter with tabular numbers; balance ~36px semibold</li><li>A phone-width column (~420px), with lots of space and one number per idea</li><li>Terms shown in the accent color with a dotted underline</li><li>Motion 200–400ms ease-out, played once, with a replay button</li><li class="r">Avoid: purple gradients, glassy cards, emoji headers, too many pill buttons</li></ul>
+</div>
+
+<h2>Components</h2>
+<details><summary>App &amp; navigation <code>App.jsx</code></summary><div class="body"><p>Tracks which screen is showing (intro / home / detail) and the overlays.</p><p class="ref">prd.md › Screens and Layout</p></div></details>
+<details><summary>Portfolio store <code>state/PortfolioContext.jsx</code></summary><div class="body"><p>Loads and saves localStorage. <code>buy</code> and <code>sell</code> check the rules and return an error instead of changing anything; there's also <code>topUp</code> and <code>reset</code>.</p><p class="ref">prd.md › Buying and Selling · Top Up Fake Money · States and Boundaries</p></div></details>
+<details><summary>Price simulator <code>state/usePrices.js</code></summary><div class="body"><p>Every 3 seconds, a random move scaled by volatility. Keeps the last ~60 points per stock. Held in memory only.</p><p class="ref">prd.md › Stock Detail and Prices</p></div></details>
+<details><summary>Intro &amp; tutorial <code>screens/Intro.jsx · components/TutorialBar.jsx</code></summary><div class="body"><p>2–3 intro cards, then Tutorial / Skip. The tutorial is a hint bar over the real screens: Tap Apple → Buy → 1 share → Sell. Each step advances when you do it.</p><p class="ref">prd.md › Intro and Guided Tutorial</p></div></details>
+<details><summary>Home <code>screens/Home.jsx · components/TopUp.jsx</code></summary><div class="body"><p>Balance and total value, holdings (or the empty state), all stocks, and Top up.</p><p class="ref">prd.md › Home and Portfolio</p></div></details>
+<details><summary>Stock detail &amp; trade <code>screens/StockDetail.jsx · components/TradePanel.jsx · PriceChart.jsx</code></summary><div class="body"><p>Price, chart, key-number terms, and Buy/Sell. The trade sheet has a share stepper, a live total, and inline errors.</p><p class="ref">prd.md › Stock Detail and Prices · Buying and Selling</p></div></details>
+<details open><summary class="g">Term explanations (the kernel) <code>components/TermSheet.jsx · animations/*</code></summary><div class="body"><ul>
+<li><b>Market cap:</b> share icons × price build one company-value block</li>
+<li><b>P/E ratio:</b> a scale with price vs. yearly earnings, and a "years of earnings" counter</li>
+<li><b>Volatility:</b> a calm line and a jagged line ending at the same place</li>
+<li><b>Dividend:</b> coins drop from the company into your cash</li>
+<li><b>Unrealized gain/loss:</b> value floats up and down, and tapping Sell freezes it into cash</li></ul><p class="ref">prd.md › Term Explanations (the kernel)</p></div></details>
+
+<h2>Data</h2>
+<div class="grid">
+<div class="card"><b>stocks.js</b><p>8 sample stocks with base price, market cap, P/E, dividend, and volatility. Labeled as sample data.</p></div>
+<div class="card"><b>localStorage</b><p><code>{cash, holdings:{SYM:{shares,avgCost}}, hasSeenIntro}</code>. Survives reloads.</p></div>
+<div class="card"><b>Prices</b><p>In memory only, and restart from the base prices on reload.</p></div>
+<div class="card"><b>Gain/loss</b><p>Computed from the current price and avgCost, never stored.</p></div>
+</div>
+
+<h2>File structure</h2>
+<pre>practice-portfolio/
+├── index.html · package.json · tailwind.config.js
+├── src/
+│   ├── App.jsx · main.jsx · index.css
+│   ├── data/        stocks.js · terms.js
+│   ├── state/       PortfolioContext.jsx · usePrices.js
+│   ├── screens/     Intro · Home · StockDetail
+│   ├── components/  PriceChart · TradePanel · TopUp · TutorialBar · TermLink · TermSheet
+│   └── animations/  MarketCap · PERatio · Volatility · Dividend · UnrealizedGain
+└── devpost/</pre>
+
+<h2>Run it &amp; failure modes</h2>
+<div class="grid">
+<div class="card"><b>Run</b><p><code>npm install</code> → <code>npm run dev</code> → localhost:5173. Needs Node 18+ and no keys. Record in a phone-size window. Deployment is optional (Vercel), decided in 6-ship.</p></div>
+<div class="card"><b class="r">What can break</b><ul><li>Corrupted save → start fresh at $10,000</li><li>Price ≤ 0 → minimum price floor</li><li>Bad trade or a share count ≤ 0 → inline error, Confirm disabled</li></ul></div>
+</div>
+
+<h2>Decisions</h2>
+<div class="card"><ul><li><b>Yours:</b> a browser-only React stack (JS over Python), simulated prices, run locally and record.</li><li><b>Derived:</b> 8 stocks, a 3s tick, $10k start, the color tokens, the animation concepts.</li><li><b>Learning unknown:</b> better AI design output comes from exact tokens and an avoid list instead of adjectives. Check each screen against the tokens during the build.</li></ul></div>
+</main>
+<script>
+const S=[["Intro",20,40,"1. App reads localStorage. Nothing saved → a $10,000 portfolio and the Intro.",[0]],
+["Home",160,40,"3. Home reads cash and holdings from the store, and prices from the simulator, then works out gain/loss.",[0,1]],
+["Stock detail",300,40,"4. Stock detail shows the price, a chart of recent simulated prices, and key numbers as tappable terms.",[1]],
+["Term sheet",440,40,"5. Tap a term → the sheet slides up with its explanation and animation. This is the kernel.",[]],
+["Trade panel",580,40,"6. Buy or sell → the store checks the rules. Too much → error and no change. OK → it updates and saves to localStorage.",[0]],
+["Tutorial bar",720,40,"2. The optional tutorial hint bar guides you through a buy and a sell on the real screens, then marks the intro as seen.",[0]]];
+const g=document.getElementById("screens"),ns="http://www.w3.org/2000/svg";let i=0;
+S.forEach(([l,x,y],k)=>{const r=document.createElementNS(ns,"rect");Object.entries({x,y,width:120,height:60,rx:8,id:"c"+k,class:"box"}).forEach(([a,v])=>r.setAttribute(a,v));r.style.cursor="pointer";r.onclick=()=>{i=k;show()};g.appendChild(r);const t=document.createElementNS(ns,"text");t.setAttribute("x",x+60);t.setAttribute("y",y+35);t.setAttribute("text-anchor","middle");t.textContent=l;t.style.pointerEvents="none";g.appendChild(t)});
+function show(){S.forEach((s,k)=>document.getElementById("c"+k).classList.toggle("on",k===i));[0,1].forEach(n=>document.getElementById("s"+n).classList.toggle("on",S[i][4].includes(n)));document.getElementById("stepText").innerHTML="<b>"+S[i][0]+"</b> "+S[i][3]}
+prev.onclick=()=>{i=(i+S.length-1)%S.length;show()};next.onclick=()=>{i=(i+1)%S.length;show()};show();
+</script>
+</body>
+</html>

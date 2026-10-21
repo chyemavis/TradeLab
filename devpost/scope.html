@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Practice Portfolio Scope</title>
+<style>
+:root{--bg:#0d1117;--card:#161b22;--line:#30363d;--text:#e6edf3;--muted:#8b949e;--green:#3fb950;--red:#f85149;--blue:#58a6ff;--amber:#d29922}
+@media (prefers-color-scheme: light){:root{--bg:#f6f8fa;--card:#fff;--line:#d0d7de;--text:#1f2328;--muted:#59636e;--green:#1a7f37;--red:#cf222e;--blue:#0969da;--amber:#9a6700}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:860px;margin:0 auto;padding:32px 16px 64px}
+.tag{display:inline-block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);border:1px solid var(--amber);border-radius:999px;padding:2px 10px}
+h1{font-size:2rem;margin:12px 0 4px}
+.lede{color:var(--muted);margin:0 0 28px;font-size:1.1rem}
+.kernel{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:10px;padding:18px 20px;margin-bottom:28px}
+.kernel h2{margin:0 0 6px;font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--green)}
+h2.sec{font-size:1.15rem;margin:32px 0 10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.card h3{margin:0 0 6px;font-size:.95rem;color:var(--blue)}
+.card p{margin:0}
+svg{width:100%;height:auto;display:block}
+svg text{fill:var(--text);font:13px system-ui,sans-serif}
+svg .sub{fill:var(--muted);font-size:11px}
+svg .box{fill:var(--card);stroke:var(--line);stroke-width:1.5}
+svg .hl{stroke:var(--green);stroke-width:2}
+svg .arr{stroke:var(--muted);stroke-width:1.5;fill:none;marker-end:url(#a)}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:10px}
+summary{cursor:pointer;padding:14px 20px;font-weight:600;list-style:none;display:flex;justify-content:space-between}
+summary::after{content:"+";color:var(--muted)}
+details[open] summary::after{content:"−"}
+details ul{margin:0;padding:0 20px 16px 40px}
+details li{margin:4px 0}
+.now summary{color:var(--green)}.later summary{color:var(--amber)}.cut summary{color:var(--red)}
+.open li{color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+<span class="tag">Scope · approved</span>
+<h1>Practice Portfolio</h1>
+<p class="lede">A practice trading app with fake money that shows beginners what investing terms mean, visually and in plain English.</p>
+
+<div class="kernel">
+<h2>The unique kernel</h2>
+Investing terms and charts are explained through a mix of text and visual aids, not just text definitions. You tap a confusing term and see what it means, while you're trading.
+</div>
+
+<h2 class="sec">How it fits together</h2>
+<div class="card">
+<svg viewBox="0 0 760 250" role="img" aria-label="A beginner goes through the intro tutorial, then loops between trading and the portfolio view. From any screen they can tap a term to get a visual explanation.">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#8b949e"/></marker></defs>
+<rect class="box" x="10" y="40" width="130" height="60" rx="8"/><text x="75" y="66" text-anchor="middle">Beginner</text><text class="sub" x="75" y="84" text-anchor="middle">"where to start?"</text>
+<rect class="box" x="190" y="40" width="140" height="60" rx="8"/><text x="260" y="66" text-anchor="middle">Intro tutorial</text><text class="sub" x="260" y="84" text-anchor="middle">short guide</text>
+<rect class="box" x="380" y="40" width="150" height="60" rx="8"/><text x="455" y="66" text-anchor="middle">Buy / sell</text><text class="sub" x="455" y="84" text-anchor="middle">fake cash</text>
+<rect class="box" x="590" y="40" width="160" height="60" rx="8"/><text x="670" y="66" text-anchor="middle">Portfolio view</text><text class="sub" x="670" y="84" text-anchor="middle">how picks are doing</text>
+<path class="arr" d="M140,70H186"/><path class="arr" d="M330,70H376"/><path class="arr" d="M530,62H586"/><path class="arr" d="M590,80H534"/>
+<text class="sub" x="560" y="30" text-anchor="middle">core loop</text>
+<rect class="box hl" x="380" y="170" width="300" height="64" rx="8"/><text x="530" y="196" text-anchor="middle">Tap a term → text + visual aid</text><text class="sub" x="530" y="216" text-anchor="middle">the kernel, available everywhere</text>
+<path class="arr" d="M455,100V166"/><path class="arr" d="M670,100V166"/><path class="arr" d="M260,100Q260,200 376,202"/>
+</svg>
+</div>
+
+<h2 class="sec">The essentials</h2>
+<div class="grid">
+<div class="card"><h3>Who it's for</h3><p>A complete beginner who wants to invest but doesn't know "what is good or bad" or where to find information. Today they'd just read about it, with no safe place to try.</p></div>
+<div class="card"><h3>Look &amp; feel</h3><p>Like a real trading app, not a toy. No specific reference app yet.</p></div>
+<div class="card"><h3>Why it matters</h3><p>The learner wants to start investing and to learn through building it. It's also practice for getting better design output from AI.</p></div>
+<div class="card"><h3>"Working" means</h3><p>Go through the tutorial, buy and sell with fake money, see the portfolio, and tap a term for a visual explanation (the "oh, that's cool" moment).</p></div>
+</div>
+
+<h2 class="sec">Proof-of-concept boundary</h2>
+<details class="now" open><summary>Now</summary><ul><li>Short intro tutorial</li><li>Buy and sell with a fake cash balance</li><li>Portfolio view</li><li>Tap-to-explain for a small set of terms (text + visual aid)</li></ul></details>
+<details class="later"><summary>Later</summary><ul><li>More creative or interactive ways of showing what terms mean</li><li>Explanations for more terms</li></ul></details>
+<details class="cut"><summary>Cut</summary><ul><li><b>Real money and brokerage connections:</b> it's a practice tool; real money adds risk and complexity without helping prove the idea.</li><li><b>Accounts and login:</b> not needed for a 1-minute demo.</li></ul></details>
+<details class="open"><summary>Open for later phases</summary><ul><li>Real stock prices (from an API) or simulated ones?</li><li>Which terms get explanations in the proof of concept?</li></ul></details>
+</main>
+</body>
+</html>

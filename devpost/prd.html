@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Practice Portfolio PRD</title>
+<style>
+:root{--bg:#0d1117;--card:#161b22;--line:#30363d;--text:#e6edf3;--muted:#8b949e;--green:#3fb950;--red:#f85149;--blue:#58a6ff;--amber:#d29922}
+@media (prefers-color-scheme: light){:root{--bg:#f6f8fa;--card:#fff;--line:#d0d7de;--text:#1f2328;--muted:#59636e;--green:#1a7f37;--red:#cf222e;--blue:#0969da;--amber:#9a6700}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:900px;margin:0 auto;padding:32px 16px 64px}
+.tag{display:inline-block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);border:1px solid var(--amber);border-radius:999px;padding:2px 10px}
+h1{font-size:2rem;margin:12px 0 4px}
+.lede{color:var(--muted);margin:0 0 20px;font-size:1.1rem}
+.expand{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:10px;padding:14px 18px;margin-bottom:24px}
+h2{font-size:1.15rem;margin:32px 0 12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+svg{width:100%;height:auto;display:block}
+svg text{fill:var(--text);font:12px system-ui,sans-serif}
+svg .box{fill:var(--card);stroke:var(--line);stroke-width:1.5;cursor:pointer}
+svg .box.on{stroke:var(--green);stroke-width:2.5}
+svg .opt{stroke-dasharray:4 3}
+svg .arr{stroke:var(--muted);stroke-width:1.5;fill:none;marker-end:url(#a)}
+.stepper{display:flex;gap:8px;align-items:center;margin-top:14px;flex-wrap:wrap}
+button{background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:6px 14px;font:inherit;cursor:pointer}
+button:hover{border-color:var(--blue)}
+#stepText{flex:1;min-width:220px}
+#stepText b{color:var(--green)}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:10px}
+summary{cursor:pointer;padding:14px 20px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:8px}
+summary::after{content:"+";color:var(--muted)}
+details[open] summary::after{content:"−"}
+summary .k{font-size:11px;color:var(--green);border:1px solid var(--green);border-radius:999px;padding:1px 8px;margin-left:auto;align-self:center}
+details .body{padding:0 20px 16px}
+ul.ac{list-style:none;padding:0;margin:0}
+ul.ac li{padding:4px 0 4px 26px;position:relative}
+ul.ac li::before{content:"";position:absolute;left:0;top:9px;width:14px;height:14px;border:1.5px solid var(--muted);border-radius:4px}
+.terms{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.term{border:1px dashed var(--blue);color:var(--blue);border-radius:6px;padding:2px 10px;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.st b{display:block;margin-bottom:2px}
+.st p{margin:0;color:var(--muted);font-size:14px}
+.oq li{margin:6px 0}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.cols ul{margin:6px 0 0;padding-left:20px}
+.cols h3{margin:0;font-size:.95rem}
+.g{color:var(--green)}.r{color:var(--red)}.y{color:var(--amber)}
+</style>
+</head>
+<body>
+<main>
+<span class="tag">PRD · approved</span>
+<h1>Practice Portfolio</h1>
+<p class="lede">A practice trading app with fake money for complete investing beginners, with confusing terms explained in plain English and a mini animation.</p>
+
+<div class="expand">Scope said: <i>"tap a term, see text plus a visual aid."</i> Now we know exactly what that means: <b>five specific terms, each with its own mini animation</b>, tappable wherever they appear.</div>
+
+<h2>The core journey</h2>
+<div class="card">
+<svg viewBox="0 0 860 200" role="img" aria-label="Journey: intro, optional tutorial, home, stock detail, term explanation, trade, back to home">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#8b949e"/></marker></defs>
+<g id="nodes"></g>
+<path class="arr" d="M110,60H138"/><path class="arr" d="M110,72Q170,150 250,150H346"/><path class="arr" d="M248,60H346"/>
+<path class="arr" d="M456,60H484"/><path class="arr" d="M594,52H622"/><path class="arr" d="M622,68H598"/>
+<path class="arr" d="M539,82V128"/><path class="arr" d="M484,150H460"/>
+<path class="arr" d="M400,128V86"/>
+</svg>
+<div class="stepper"><button id="prev">← Back</button><button id="next">Next →</button><div id="stepText"></div></div>
+</div>
+
+<h2>Screens, behavior &amp; criteria</h2>
+<details open><summary>Intro &amp; guided tutorial</summary><div class="body"><ul class="ac">
+<li>A short intro to the app appears on first open</li><li>It ends with the option to start the guided tutorial or skip it</li><li>The tutorial walks through one buy and one sell on the real screens</li><li>It isn't shown again once finished or skipped</li></ul></div></details>
+<details><summary>Home &amp; portfolio</summary><div class="body"><ul class="ac">
+<li>Fake cash balance shown prominently at the top</li><li>Each holding shows stock, shares, current value, and gain/loss in $ and %</li><li>Values update as prices move</li><li>Empty state: "No stocks yet," pointing to browsing</li></ul></div></details>
+<details><summary>Stock detail &amp; prices</summary><div class="body"><ul class="ac">
+<li>Current price and a price chart</li><li>Prices move over time in a realistic way</li><li>Buy / Sell buttons</li></ul></div></details>
+<details open><summary>Term explanations <span class="k">THE KERNEL</span></summary><div class="body">
+<div class="terms"><span class="term">market cap</span><span class="term">P/E ratio</span><span class="term">volatility</span><span class="term">dividend</span><span class="term">unrealized gain/loss</span></div>
+<ul class="ac"><li>Tappable wherever they appear</li><li>Plain-English explanation plus a mini animation</li><li>Each term gets its own animation, not one generic animation</li></ul></div></details>
+<details><summary>Buying &amp; selling</summary><div class="body"><ul class="ac">
+<li>Buy with enough cash: cash goes down and the holding appears or grows</li><li>Sell shares you own: cash goes up and the holding shrinks or disappears</li><li class="r">Buying more than the cash covers → blocked with an error</li><li class="r">Selling more shares than owned → blocked with an error</li></ul></div></details>
+<details><summary>Top up fake money</summary><div class="body"><ul class="ac"><li>The user can add fake cash to their balance</li></ul></div></details>
+
+<h2>States</h2>
+<div class="grid">
+<div class="card st"><b>First use</b><p>The intro appears. The cash balance is $10,000 (assumption) and there are no holdings.</p></div>
+<div class="card st"><b>Empty portfolio</b><p>"No stocks yet," pointing to browsing.</p></div>
+<div class="card st"><b class="r">Invalid trade</b><p>An error message appears and nothing changes.</p></div>
+<div class="card st"><b>Coming back</b><p>Cash, holdings, and the intro-seen flag persist.</p></div>
+</div>
+
+<h2>Look &amp; feel</h2>
+<div class="card">Minimal and dark, like a real trading app. Green for gains and red for losses <span class="y">(assumption)</span>. The mini animations are the design highlight.</div>
+
+<h2>Boundaries</h2>
+<div class="cols">
+<div class="card"><h3 class="g">Building now</h3><ul><li>Intro + optional tutorial</li><li>Home / portfolio</li><li>Stock detail with moving prices</li><li>5 animated terms</li><li>Validated buy and sell</li><li>Top-up</li><li>Persistence</li></ul></div>
+<div class="card"><h3 class="y">Deferred</h3><ul><li>More terms</li><li>More creative explanation formats</li></ul></div>
+<div class="card"><h3 class="r">Non-goals</h3><ul><li>Real money or brokers</li><li>Accounts and login</li><li>Investment advice</li></ul></div>
+</div>
+
+<h2>Open questions (for spec)</h2>
+<div class="card"><ul class="oq"><li>Live market data or a realistic simulation? Either meets the PRD.</li><li>Which stocks are available: a small fixed list?</li></ul></div>
+</main>
+<script>
+const N=[["intro","Intro",0,40,110,"First open: a short welcome to the app, then the choice to take the tutorial or skip it."],
+["tut","Tutorial",140,40,108,"Optional: the guided tutorial walks through one buy and one sell on the real screens."],
+["home","Home",348,40,108,"Home: the cash balance at the top, then how your stocks are doing."],
+["detail","Stock detail",486,40,108,"Stock detail: the price, a moving chart, tappable terms, and Buy / Sell."],
+["term","Term ✦",624,40,108,"Tap a term: a plain-English explanation plus a mini animation. This is the kernel."],
+["trade","Trade",350,130,110,"Trade: pick a share count and confirm. Invalid trades are blocked with an error. Then it's back to home, updated."]];
+const g=document.getElementById("nodes"),ns="http://www.w3.org/2000/svg";let i=0;
+N.forEach(([id,l,x,y,w],k)=>{const r=document.createElementNS(ns,"rect");Object.entries({x,y,width:w,height:44,rx:8,id:"n"+k,class:"box"+(id==="tut"?" opt":"")}).forEach(([a,v])=>r.setAttribute(a,v));r.onclick=()=>{i=k;show()};g.appendChild(r);const t=document.createElementNS(ns,"text");t.setAttribute("x",x+w/2);t.setAttribute("y",y+26);t.setAttribute("text-anchor","middle");t.textContent=l;t.style.pointerEvents="none";g.appendChild(t)});
+function show(){N.forEach((_,k)=>document.getElementById("n"+k).classList.toggle("on",k===i));document.getElementById("stepText").innerHTML="<b>Step "+(i+1)+"/"+N.length+"</b> "+N[i][5]}
+prev.onclick=()=>{i=(i+N.length-1)%N.length;show()};next.onclick=()=>{i=(i+1)%N.length;show()};show();
+</script>
+</body>
+</html>

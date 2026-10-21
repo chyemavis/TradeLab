@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-bg text-text font-sans antialiased;
+  font-size: 15px;
+}
+.num {
+  font-variant-numeric: tabular-nums;
+}
