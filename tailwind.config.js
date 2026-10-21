@@ -15,6 +15,7 @@ export default {
         gain: v('gain'),
         loss: v('loss'),
         practice: v('practice'),
+        hero: v('hero'),
       },
       fontFamily: { sans: ['"DM Sans"', 'system-ui', 'sans-serif'] },
     },

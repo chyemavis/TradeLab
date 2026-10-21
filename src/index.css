@@ -5,50 +5,27 @@
 /* Theme tokens (spec.md > Look and Feel). RGB triplets so Tailwind opacity works;
    --svg-* are full colors for SVG fill/stroke attributes in the animations. */
 :root {
-  --bg: 247 249 252;
+  --bg: 255 255 255;
   --surface: 255 255 255;
-  --line: 227 232 240;
-  --ink: 15 23 42;
-  --muted: 91 104 128;
-  --accent: 13 148 136;
-  --gain: 22 163 74;
-  --loss: 220 75 69;
-  --practice: 217 119 6;
-  --shadow: 0 1px 2px rgb(15 23 42 / 0.04), 0 4px 16px rgb(15 23 42 / 0.06);
+  --line: 233 236 239;
+  --ink: 28 31 35;
+  --muted: 124 126 140;
+  --accent: 0 179 134;
+  --gain: 0 179 134;
+  --loss: 235 91 60;
+  --practice: 0 140 105;
+  --hero: 18 26 24;
+  --shadow: 0 1px 2px rgb(16 24 40 / 0.04);
 
-  --svg-bg: #F1F4F9;
+  --svg-bg: #F5F7F8;
   --svg-surface: #FFFFFF;
-  --svg-line: #D5DCE7;
-  --svg-ink: #0F172A;
-  --svg-muted: #5B6880;
-  --svg-accent: #0D9488;
-  --svg-gain: #16A34A;
-  --svg-loss: #DC4B45;
-  --svg-coin: #D97706;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: 11 18 32;
-    --surface: 19 28 46;
-    --line: 34 48 74;
-    --ink: 230 235 245;
-    --muted: 139 151 173;
-    --accent: 20 184 166;
-    --gain: 34 197 94;
-    --loss: 229 96 90;
-    --practice: 245 165 36;
-    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.25);
-
-    --svg-bg: #0B1220;
-    --svg-surface: #131C2E;
-    --svg-line: #22304A;
-    --svg-ink: #E6EBF5;
-    --svg-muted: #8B97AD;
-    --svg-accent: #14B8A6;
-    --svg-gain: #22C55E;
-    --svg-loss: #E5605A;
-    --svg-coin: #F5A524;
-  }
+  --svg-line: #DCE1E5;
+  --svg-ink: #1C1F23;
+  --svg-muted: #7C7E8C;
+  --svg-accent: #00B386;
+  --svg-gain: #00B386;
+  --svg-loss: #EB5B3C;
+  --svg-coin: #F2A93B;
 }
 
 body {
@@ -69,8 +46,14 @@ svg text {
 
 @layer components {
   .card {
-    @apply bg-surface rounded-2xl;
-    box-shadow: var(--shadow);
+    @apply bg-surface rounded-2xl border border-line;
+  }
+  /* Dark portfolio hero with a soft green glow (reference: brokerage app hero). */
+  .hero {
+    @apply rounded-2xl text-white overflow-hidden relative;
+    background:
+      radial-gradient(120% 140% at 100% 0%, rgb(0 179 134 / 0.35), transparent 55%),
+      rgb(var(--hero));
   }
   .btn {
     @apply inline-flex items-center justify-center font-semibold rounded-xl px-5 py-3 transition active:scale-[0.98];

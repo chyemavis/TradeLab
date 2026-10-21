@@ -44,20 +44,16 @@ The tradeoff you accepted: it's JavaScript rather than Python or Java.
 - **Submission:** a short demo video plus a public GitHub repository. Deployment is optional (Vercel is the likely choice); decide in `6-ship`.
 
 ## Look and Feel
-Revised twice during the build. The first version was "too basic." The playful sticker look was then replaced by the learner's own design brief: **calm, confident, and clear**, like a modern fintech app, with more explanation and less urgency.
-- **Colors** (CSS variables in `src/index.css`, used through Tailwind). Dark mode follows the system setting; light mode is the default.
-  - Dark: background navy `#0B1220`, surface `#131C2E`, line `#22304A`, text `#E6EBF5`, muted `#8B97AD`
-  - Light: background `#F7F9FC`, surface white, line `#E3E8F0`, text `#0F172A`, muted `#5B6880`
-  - Accent teal (`#14B8A6` dark / `#0D9488` light) for primary actions, highlights, and explainable terms
-  - Gain green `#22C55E`; loss is a muted coral-red `#E5605A`, so losses don't feel like alarms
-  - Practice amber `#F5A524` for the "Practice mode" badge only
+Final direction, from a reference screenshot the learner shared during the build (a light, mint-green brokerage app): **minimalistic but aesthetic**. It replaces the earlier navy and sticker versions.
+- **Light only** (white background), matching the reference.
+- **Colors** (CSS variables in `src/index.css`): text `#1C1F23`, muted `#7C7E8C`, lines `#E9ECEF`, mint-green accent and gains `#00B386`, losses `#EB5B3C`, and a dark hero `#121A18` with a soft green glow.
 - **Gains and losses never rely on color alone:** always ▲/▼ plus a +/− sign.
-- **Type:** DM Sans with tabular numbers. Clear hierarchy, with a big bold total portfolio value at the top and smaller supporting stats beneath.
-- **Layout:** a single phone-width column (about 420px), generous spacing, and rounded cards (`.card`, 16px radius, soft shadow) so the numbers have room. Smooth line charts; sparklines in lists.
-- **Terms:** a teal dotted underline with a small ⓘ. Tapping one opens a "Learn the term" sheet with its animation.
-- **Motion:** sheets slide in response to taps, plus the term animations. No flashing numbers or confetti on trades. Reduced motion is respected.
-- **Copy tone:** plain, friendly, and calm, in sentence case. Empty states invite action.
-- **Avoid:** anything that feels like gambling, such as flashing prices, celebration on every trade, or urgency language.
+- **Type:** DM Sans with tabular numbers. Big bold portfolio value in the hero.
+- **Home:** a "Portfolio" title with a small "Practice" pill, then the dark hero card (total value, gain line, an Invested | Cash split), then round outlined action tiles, then Holdings rows ("2 × $228.10") and Explore stocks rows with sparklines.
+- **Stock detail:** a big price, a green or red line chart, key numbers in an outlined card, and a floating Buy/Sell pill.
+- **Terms:** an accent dotted underline with ⓘ, opening a "Learn the term" sheet.
+- **Motion:** sheets in response to taps, plus the term animations. No flashing or confetti.
+- **Avoid:** gambling-like urgency, and extra tabs or screens copied from the reference that the PRD doesn't need (games, bottom navigation, date circles).
 
 ## Components
 

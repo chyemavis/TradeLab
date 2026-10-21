@@ -29,9 +29,9 @@ Source: `scope.md > The Core Loop`, `scope.md > What "Working" Looks Like`.
 - **Trade:** choose the number of shares, see the total cost, and confirm.
 
 ## Look and Feel
-- Calm, confident, and clear, like a modern fintech app, with more explanation and less urgency (learner brief during build; replaces "minimal and dark").
-- Navy dark mode plus a clean light mode, teal accent, green gains and muted coral-red losses, always with ▲/▼ and +/−.
-- A "Practice mode" badge, so the money is clearly pretend.
+- Minimalistic but aesthetic, like the learner's reference brokerage app: white, mint-green accent, and a dark portfolio hero card.
+- Green gains and red losses, always with ▲/▼ and +/−.
+- A "Practice" pill so the money is clearly pretend.
 - The term animations are the design highlight.
 
 ## Features and Behavior

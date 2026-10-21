@@ -28,9 +28,9 @@ function Screens() {
         <StockDetail
           symbol={symbol} prices={prices} onBack={() => setSymbol(null)} onTerm={setTerm} position={position}
           actions={
-            <div className="fixed bottom-0 inset-x-0 mx-auto max-w-[420px] px-5 pb-6 pt-4 bg-gradient-to-t from-bg via-bg to-transparent flex gap-3 z-30">
-              <button onClick={() => setTrade('buy')} className="btn flex-1 bg-gain text-white text-lg">Buy</button>
-              <button onClick={() => setTrade('sell')} disabled={!holding} className="btn flex-1 bg-loss text-white text-lg">Sell</button>
+            <div className="fixed bottom-5 inset-x-0 mx-auto w-fit flex gap-1 p-1.5 bg-surface rounded-full border border-line shadow-[0_8px_24px_rgb(16_24_40/0.12)] z-30">
+              <button onClick={() => setTrade('buy')} className="btn rounded-full bg-gain text-white px-9 py-2.5">Buy</button>
+              <button onClick={() => setTrade('sell')} disabled={!holding} className="btn rounded-full bg-loss text-white px-9 py-2.5">Sell</button>
             </div>
           }
         />
