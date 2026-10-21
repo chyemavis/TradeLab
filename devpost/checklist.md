@@ -69,6 +69,7 @@ Build mode: fast
 - [x] Split into bottom tabs: Home, Explore, Learn — learner: "it should not be all info in one screen"; tab grouping chosen by the agent at the learner's request
 - [x] Moved Top up into the dark portfolio card as a button; removed the Top up / Explore / Learn tiles from Home (redundant with the tab bar) — learner request
 - [x] Games tab with Risk vs. reward and Diversification challenge — learner-designed games added at final review (`prd.md > Games`)
+- [x] Made both games animated and game-like (year-by-year race with weather banners, crash shake and podium; coin baskets with a spotlight spin, lightning strike, live total and star rating) — learner: "more animation like, like a real game"
 - [ ] Final review complete — feedback resolved and learner confirms ready to ship
 
 ## Code Tour and App Map
