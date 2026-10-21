@@ -1,5 +1,5 @@
 import { bySymbol, volatilityLabel } from '../data/stocks.js'
-import { money, pct, bigMoney } from '../format.js'
+import { money, pct, bigMoney, signedMoney } from '../format.js'
 import PriceChart from '../components/PriceChart.jsx'
 import TermLink from '../components/TermLink.jsx'
 
@@ -17,13 +17,13 @@ export default function StockDetail({ symbol, prices, onBack, onTerm, position =
   return (
     <div className="pb-32">
       <div className="px-5 pt-6">
-        <button onClick={onBack} className="text-lilac text-sm hover:text-chalk">‹ All stocks</button>
-        <h1 className="mt-6 font-display text-lg font-semibold">
-          {s.name} <span className="text-lilac font-normal">{s.symbol}</span>
+        <button onClick={onBack} className="text-muted text-sm hover:text-ink">‹ All stocks</button>
+        <h1 className="mt-6 text-lg font-semibold">
+          {s.name} <span className="text-muted font-normal">{s.symbol}</span>
         </h1>
-        <div className="font-display text-5xl font-extrabold num tracking-tight mt-1">{money(prices.price(symbol))}</div>
+        <div className="text-5xl font-bold num tracking-tight mt-1">{money(prices.price(symbol))}</div>
         <div className={`num mt-1 ${ch >= 0 ? 'text-gain' : 'text-loss'}`}>
-          {pct(ch)} <span className="text-lilac">in the last few minutes</span>
+          {pct(ch)} <span className="text-muted">in the last few minutes</span>
         </div>
       </div>
 
@@ -32,11 +32,11 @@ export default function StockDetail({ symbol, prices, onBack, onTerm, position =
       </div>
 
       <section className="px-5 mt-8">
-        <h2 className="font-display text-xl font-semibold">What the numbers say</h2>
-        <p className="text-lilac text-sm mt-1">Tap a yellow word to see what it means.</p>
-        <dl className="mt-4">
+        <h2 className="text-xl font-semibold">What the numbers say</h2>
+        <p className="text-muted text-sm mt-1">Tap an underlined term to see what it means.</p>
+        <dl className="card mt-4 px-4">
           {stats.map(([id, label, value]) => (
-            <div key={id} className="flex items-center justify-between py-3 border-b border-line">
+            <div key={id} className="flex items-center justify-between py-3.5 border-b border-line last:border-0">
               <dt>{term(id, label)}</dt>
               <dd className="num font-semibold">{value}</dd>
             </div>
@@ -45,15 +45,15 @@ export default function StockDetail({ symbol, prices, onBack, onTerm, position =
       </section>
 
       <section className="px-5 mt-8">
-        <h2 className="font-display text-xl font-semibold">Your shares</h2>
-        <div className="flex items-center justify-between py-3 border-b border-line mt-2">
+        <h2 className="text-xl font-semibold">Your shares</h2>
+        <div className="card flex items-center justify-between py-3.5 px-4 mt-3">
           <span>{term('unrealizedGain', 'Unrealized gain/loss')}</span>
           {position ? (
             <span className={`num font-semibold ${position.gain >= 0 ? 'text-gain' : 'text-loss'}`}>
-              {position.gain >= 0 ? '+' : ''}{money(position.gain)}
+              {signedMoney(position.gain)}
             </span>
           ) : (
-            <span className="text-lilac text-sm">You don't own any yet</span>
+            <span className="text-muted text-sm">You don't own any yet</span>
           )}
         </div>
       </section>

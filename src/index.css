@@ -2,42 +2,85 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Theme tokens (spec.md > Look and Feel). RGB triplets so Tailwind opacity works;
+   --svg-* are full colors for SVG fill/stroke attributes in the animations. */
+:root {
+  --bg: 247 249 252;
+  --surface: 255 255 255;
+  --line: 227 232 240;
+  --ink: 15 23 42;
+  --muted: 91 104 128;
+  --accent: 13 148 136;
+  --gain: 22 163 74;
+  --loss: 220 75 69;
+  --practice: 217 119 6;
+  --shadow: 0 1px 2px rgb(15 23 42 / 0.04), 0 4px 16px rgb(15 23 42 / 0.06);
+
+  --svg-bg: #F1F4F9;
+  --svg-surface: #FFFFFF;
+  --svg-line: #D5DCE7;
+  --svg-ink: #0F172A;
+  --svg-muted: #5B6880;
+  --svg-accent: #0D9488;
+  --svg-gain: #16A34A;
+  --svg-loss: #DC4B45;
+  --svg-coin: #D97706;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: 11 18 32;
+    --surface: 19 28 46;
+    --line: 34 48 74;
+    --ink: 230 235 245;
+    --muted: 139 151 173;
+    --accent: 20 184 166;
+    --gain: 34 197 94;
+    --loss: 229 96 90;
+    --practice: 245 165 36;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.25);
+
+    --svg-bg: #0B1220;
+    --svg-surface: #131C2E;
+    --svg-line: #22304A;
+    --svg-ink: #E6EBF5;
+    --svg-muted: #8B97AD;
+    --svg-accent: #14B8A6;
+    --svg-gain: #22C55E;
+    --svg-loss: #E5605A;
+    --svg-coin: #F5A524;
+  }
+}
+
 body {
-  @apply bg-night text-chalk font-sans antialiased;
+  @apply bg-bg text-ink font-sans antialiased;
   font-size: 15px;
 }
 .num {
   font-variant-numeric: tabular-nums;
 }
 :focus-visible {
-  outline: 2px solid theme('colors.coin');
+  outline: 2px solid rgb(var(--accent));
   outline-offset: 3px;
   border-radius: 6px;
 }
+svg text {
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
 
 @layer components {
-  /* Sticker: solid fill + hard offset shadow that presses down when tapped. */
-  .sticker {
-    @apply inline-flex items-center justify-center font-display font-semibold rounded-xl px-5 py-3 transition-transform duration-100;
-    box-shadow: 3px 3px 0 #0E0B24;
+  .card {
+    @apply bg-surface rounded-2xl;
+    box-shadow: var(--shadow);
   }
-  .sticker:active {
-    transform: translate(3px, 3px);
-    box-shadow: 0 0 0 #0E0B24;
+  .btn {
+    @apply inline-flex items-center justify-center font-semibold rounded-xl px-5 py-3 transition active:scale-[0.98];
   }
-  .sticker:disabled {
+  .btn:disabled {
     @apply opacity-40 cursor-not-allowed;
-    transform: none;
   }
-  /* Learning term chip. */
-  .term-chip {
-    @apply inline-block bg-coin text-night font-semibold rounded-md px-2 py-0.5 text-sm;
-    box-shadow: 2px 2px 0 #0E0B24;
-    transform: rotate(-2deg);
-    transition: transform 0.12s;
-  }
-  .term-chip:hover {
-    transform: rotate(0deg) scale(1.04);
+  /* Explainable term: teal dotted underline + info mark. */
+  .term {
+    @apply inline-flex items-center gap-1 text-accent font-medium underline decoration-dotted decoration-accent/60 underline-offset-4 hover:decoration-solid;
   }
 }
 
@@ -46,8 +89,4 @@ body {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
-}
-
-svg text {
-  font-family: Figtree, system-ui, sans-serif;
 }

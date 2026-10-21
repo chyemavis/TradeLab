@@ -1,22 +1,22 @@
-/** Colors and type from spec.md > Look and Feel */
+/** Colors and type from spec.md > Look and Feel; values live as CSS variables in index.css (dark + light). */
+const v = (name) => `rgb(var(--${name}) / <alpha-value>)`
+
 export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
   theme: {
     extend: {
       colors: {
-        night: '#1B1640',
-        surface: '#262055',
-        line: '#352D6E',
-        chalk: '#F3EFFF',
-        lilac: '#A39DC9',
-        gain: '#63E6BE',
-        loss: '#FF7E8F',
-        coin: '#FFC84A',
+        bg: v('bg'),
+        surface: v('surface'),
+        line: v('line'),
+        ink: v('ink'),
+        muted: v('muted'),
+        accent: v('accent'),
+        gain: v('gain'),
+        loss: v('loss'),
+        practice: v('practice'),
       },
-      fontFamily: {
-        sans: ['Figtree', 'system-ui', 'sans-serif'],
-        display: ['"Bricolage Grotesque"', 'Figtree', 'sans-serif'],
-      },
+      fontFamily: { sans: ['"DM Sans"', 'system-ui', 'sans-serif'] },
     },
   },
 }

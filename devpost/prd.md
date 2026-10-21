@@ -29,9 +29,10 @@ Source: `scope.md > The Core Loop`, `scope.md > What "Working" Looks Like`.
 - **Trade:** choose the number of shares, see the total cost, and confirm.
 
 ## Look and Feel
-- Minimal and dark-colored, like a real trading app rather than a toy.
-- Assumption to confirm in spec: the usual trading-app convention of green for gains and red for losses.
-- Mini animations are the design highlight, and the place where design quality matters most.
+- Calm, confident, and clear, like a modern fintech app, with more explanation and less urgency (learner brief during build; replaces "minimal and dark").
+- Navy dark mode plus a clean light mode, teal accent, green gains and muted coral-red losses, always with ▲/▼ and +/−.
+- A "Practice mode" badge, so the money is clearly pretend.
+- The term animations are the design highlight.
 
 ## Features and Behavior
 

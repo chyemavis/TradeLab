@@ -73,3 +73,5 @@ Activity mode:
 ## Revisions
 
 - Restyled to a playful dark "sticker" look (indigo, coin yellow, Bricolage Grotesque, Figtree) — at the early checkpoint the learner found the first look too basic and asked for more playful styling; `spec.md > Look and Feel` updated.
+- Replaced the playful sticker look with the learner's "calm, confident, clear" fintech brief (navy plus light mode, teal accent, DM Sans, cards, ▲/▼ on all gains and losses, Practice mode badge) — the learner supplied a detailed design brief after trying the playful version; `prd.md > Look and Feel` and `spec.md > Look and Feel` updated.
+- Restart the dev server after editing `tailwind.config.js` — the running Vite server didn't pick up config changes, so new color/font classes failed in the browser even though `npm run build` passed. CSS is now verified through the dev server.

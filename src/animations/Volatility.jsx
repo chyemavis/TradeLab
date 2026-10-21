@@ -8,13 +8,13 @@ export default function Volatility() {
   const t = { duration: 1.8, ease: 'easeInOut' }
   return (
     <svg viewBox="0 0 360 176" className="w-full h-full">
-      <motion.path d={WILD} fill="none" stroke="#FF7E8F" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={t} />
-      <motion.path d={CALM} fill="none" stroke="#63E6BE" strokeWidth="2.5" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={t} />
-      <circle cx="20" cy="120" r="4" fill="#F3EFFF" />
-      <motion.circle cx="340" cy="56" r="4" fill="#F3EFFF" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.8 }} />
+      <motion.path d={WILD} fill="none" stroke="var(--svg-loss)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={t} />
+      <motion.path d={CALM} fill="none" stroke="var(--svg-gain)" strokeWidth="2.5" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={t} />
+      <circle cx="20" cy="120" r="4" fill="var(--svg-ink)" />
+      <motion.circle cx="340" cy="56" r="4" fill="var(--svg-ink)" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.8 }} />
       <motion.g initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }} fontSize="11">
-        <text x="20" y="168" fill="#63E6BE">● Low volatility: smooth ride</text>
-        <text x="200" y="168" fill="#FF7E8F">● High: bumpy ride</text>
+        <text x="20" y="168" fill="var(--svg-gain)">● Low volatility: smooth ride</text>
+        <text x="200" y="168" fill="var(--svg-loss)">● High: bumpy ride</text>
       </motion.g>
     </svg>
   )

@@ -44,19 +44,20 @@ The tradeoff you accepted: it's JavaScript rather than Python or Java.
 - **Submission:** a short demo video plus a public GitHub repository. Deployment is optional (Vercel is the likely choice); decide in `6-ship`.
 
 ## Look and Feel
-Revised at the first build checkpoint: the learner found the first version "too basic" and asked for something more playful. It stays dark, and trading still works like a real app.
-- **Colors** (Tailwind theme tokens):
-  - night `#1B1640` (background), surface `#262055`, line `#352D6E`
-  - chalk `#F3EFFF` (text), lilac `#A39DC9` (muted)
-  - gain `#63E6BE`, loss `#FF7E8F`
-  - coin `#FFC84A`, reserved for money moments and learning terms
-- **Type:** Bricolage Grotesque for numbers and headings (chunky, expressive; the balance is set huge) and Figtree for body. Tabular numbers for prices.
-- **Layout:** a single phone-width column (about 420px). Home opens with the huge balance and a live line underneath, then stocks as plain rows with tiny sparklines. No identical card grid.
-- **Tappable terms:** coin-yellow "sticker" chips, slightly tilted, with a solid offset shadow. This is the one bold, playful element.
-- **Buttons:** primary buttons use the same sticker style (solid fill, 2px chalk-dark offset shadow, which presses down on tap).
-- **Motion:** only in response to the user (sheet opening, a pressed sticker, trade confirmation), plus the term animations. 200–400ms.
-- **Copy tone:** plain and friendly, written for a beginner, in sentence case.
-- **Avoid:** all-caps eyebrow labels, identical rounded cards with soft shadows, gradient washes, "→" on buttons, and near-black with a single neon accent.
+Revised twice during the build. The first version was "too basic." The playful sticker look was then replaced by the learner's own design brief: **calm, confident, and clear**, like a modern fintech app, with more explanation and less urgency.
+- **Colors** (CSS variables in `src/index.css`, used through Tailwind). Dark mode follows the system setting; light mode is the default.
+  - Dark: background navy `#0B1220`, surface `#131C2E`, line `#22304A`, text `#E6EBF5`, muted `#8B97AD`
+  - Light: background `#F7F9FC`, surface white, line `#E3E8F0`, text `#0F172A`, muted `#5B6880`
+  - Accent teal (`#14B8A6` dark / `#0D9488` light) for primary actions, highlights, and explainable terms
+  - Gain green `#22C55E`; loss is a muted coral-red `#E5605A`, so losses don't feel like alarms
+  - Practice amber `#F5A524` for the "Practice mode" badge only
+- **Gains and losses never rely on color alone:** always ▲/▼ plus a +/− sign.
+- **Type:** DM Sans with tabular numbers. Clear hierarchy, with a big bold total portfolio value at the top and smaller supporting stats beneath.
+- **Layout:** a single phone-width column (about 420px), generous spacing, and rounded cards (`.card`, 16px radius, soft shadow) so the numbers have room. Smooth line charts; sparklines in lists.
+- **Terms:** a teal dotted underline with a small ⓘ. Tapping one opens a "Learn the term" sheet with its animation.
+- **Motion:** sheets slide in response to taps, plus the term animations. No flashing numbers or confetti on trades. Reduced motion is respected.
+- **Copy tone:** plain, friendly, and calm, in sentence case. Empty states invite action.
+- **Avoid:** anything that feels like gambling, such as flashing prices, celebration on every trade, or urgency language.
 
 ## Components
 
@@ -146,7 +147,7 @@ practice-portfolio/  (project root)
 ```
 
 ## External Services and Dependencies
-None at runtime: no APIs, keys, or costs. The Inter font comes from Google Fonts and falls back to the system font when offline.
+None at runtime: no APIs, keys, or costs. The DM Sans font comes from Google Fonts and falls back to the system font when offline.
 
 ## Important Failure Modes
 - **Stored data is corrupted or from an old format** → the app ignores it and starts fresh at $10,000.
