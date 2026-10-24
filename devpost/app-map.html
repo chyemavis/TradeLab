@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Practice Portfolio App Map</title>
+<style>
+:root{--bg:#F7F9FC;--card:#fff;--line:#E3E8F0;--ink:#1C1F23;--muted:#5B6880;--accent:#0A8FAA;--hero:#101A21;--gain:#00875F}
+@media (prefers-color-scheme: dark){:root{--bg:#0E151B;--card:#16212A;--line:#26343F;--ink:#E8EEF3;--muted:#93A3B3;--accent:#3CC6DE;--hero:#0A1116;--gain:#4DD4AC}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:820px;margin:0 auto;padding:32px 16px 64px}
+h1{font-size:1.9rem;margin:0 0 4px}
+h2{font-size:1.2rem;margin:36px 0 10px}
+.lede{color:var(--muted);margin:0 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px}
+code{font-family:ui-monospace,Consolas,monospace;font-size:.88em;background:color-mix(in srgb,var(--accent) 10%,transparent);padding:1px 6px;border-radius:5px}
+.pieces{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.pieces .card b{display:block}
+.pieces .card span{color:var(--muted);font-size:.93rem}
+svg{width:100%;height:auto;display:block}
+svg text{fill:var(--ink);font:12px system-ui,sans-serif}
+svg .sub{fill:var(--muted);font-size:10.5px}
+svg .box{fill:var(--card);stroke:var(--line);stroke-width:1.5}
+svg .key{stroke:var(--accent);stroke-width:2}
+svg .arr{stroke:var(--muted);stroke-width:1.5;fill:none;marker-end:url(#a)}
+ol.route{padding-left:0;list-style:none;counter-reset:s}
+ol.route li{counter-increment:s;position:relative;padding:14px 18px 14px 56px;margin-bottom:10px}
+ol.route li::before{content:counter(s);position:absolute;left:16px;top:14px;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;display:grid;place-items:center;font-size:.9rem}
+ol.route p{margin:4px 0 0;color:var(--muted)}
+.tag{display:inline-block;font-size:12px;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:1px 10px;margin-left:6px;vertical-align:middle}
+table{width:100%;border-collapse:collapse}
+td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+td:first-child{width:42%}
+tr:last-child td{border-bottom:0}
+details{margin-top:10px}
+summary{cursor:pointer;font-weight:600}
+.practice{border-left:4px solid var(--gain)}
+pre{background:var(--hero);color:#E8EEF3;padding:12px 16px;border-radius:10px;overflow-x:auto;font-size:.88rem}
+.foot{color:var(--muted);font-size:.9rem}
+a{color:var(--accent)}
+</style>
+</head>
+<body>
+<main>
+<h1>Practice Portfolio: app map</h1>
+<p class="lede">A practice trading app with pretend money for investing beginners. Confusing terms are explained with plain English and a short animation, and two games teach risk and diversification.</p>
+<p class="foot">Snapshot of the code at commit <code>0ca1dbc</code> plus this map. The code can change later; search anchors still work after line numbers move.</p>
+
+<h2>The main pieces</h2>
+<div class="pieces">
+  <div class="card"><b>Screens and tabs</b><span><code>src/App.jsx</code> switches between Home, Explore, Games, Learn and a stock page, and opens the sheets.</span></div>
+  <div class="card"><b>Portfolio rules</b><span><code>src/state/portfolio.js</code>: buy, sell, top up, badges, and trade explanations. Plain functions, no UI.</span></div>
+  <div class="card"><b>Saved data</b><span><code>src/state/PortfolioContext.jsx</code> keeps your cash, shares, and opened terms in the browser's <code>localStorage</code>.</span></div>
+  <div class="card"><b>Simulated prices</b><span><code>src/state/usePrices.js</code> nudges sample prices every 3 seconds. Not real market data.</span></div>
+  <div class="card"><b>Term explanations (the core idea)</b><span><code>src/data/terms.js</code> holds the text; <code>src/animations/</code> holds one animation per term.</span></div>
+  <div class="card"><b>Games</b><span><code>src/games/sim.js</code> holds the game rules; <code>RiskReward.jsx</code>, <code>Diversify.jsx</code>, and the landscape <code>GameStage.jsx</code> handle the screens.</span></div>
+</div>
+
+<h2>One action, end to end: tapping "P/E ratio"</h2>
+<div class="card">
+<svg viewBox="0 0 760 210" role="img" aria-label="Tapping a term: TermLink calls openTerm in App, which records the term as learned in saved data and opens TermSheet, which plays the matching animation.">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#7C8A99"/></marker></defs>
+<rect class="box" x="10" y="20" width="150" height="62" rx="10"/><text x="85" y="46" text-anchor="middle">You tap "P/E ratio"</text><text class="sub" x="85" y="64" text-anchor="middle">TermLink.jsx</text>
+<rect class="box key" x="210" y="20" width="160" height="62" rx="10"/><text x="290" y="46" text-anchor="middle">openTerm(id)</text><text class="sub" x="290" y="64" text-anchor="middle">App.jsx</text>
+<rect class="box" x="420" y="20" width="160" height="62" rx="10"/><text x="500" y="46" text-anchor="middle">TermSheet slides up</text><text class="sub" x="500" y="64" text-anchor="middle">TermSheet.jsx + terms.js</text>
+<rect class="box" x="620" y="20" width="130" height="62" rx="10"/><text x="685" y="46" text-anchor="middle">Animation plays</text><text class="sub" x="685" y="64" text-anchor="middle">animations/PERatio.jsx</text>
+<rect class="box" x="210" y="130" width="160" height="62" rx="10"/><text x="290" y="156" text-anchor="middle">learnTerm(id)</text><text class="sub" x="290" y="174" text-anchor="middle">portfolio.js → localStorage</text>
+<rect class="box" x="420" y="130" width="160" height="62" rx="10"/><text x="500" y="156" text-anchor="middle">✓ on Learn tab, badge</text><text class="sub" x="500" y="174" text-anchor="middle">Learn.jsx, earnedBadges</text>
+<path class="arr" d="M160,51H206"/><path class="arr" d="M370,51H416"/><path class="arr" d="M580,51H616"/>
+<path class="arr" d="M290,82V126"/><path class="arr" d="M370,161H416"/>
+</svg>
+</div>
+
+<h2>The route <span class="tag">reference route</span></h2>
+<p class="foot">Not toured live in the wrap-up; use it next time you want to find your way around. Search for the anchor text in your editor (Ctrl+Shift+F).</p>
+<ol class="route">
+  <li class="card"><b><code>src/components/TermLink.jsx</code></b>, anchor <code>export default function TermLink</code>
+    <p>The underlined word with ⓘ. All it does is call <code>onOpen(id)</code> with the term's id, such as <code>peRatio</code>.</p></li>
+  <li class="card"><b><code>src/App.jsx</code></b>, anchor <code>const openTerm</code>
+    <p>Opens the sheet and records the term as opened. That record feeds the ✓ marks on the Learn tab and the "Word nerd" badge.</p></li>
+  <li class="card"><b><code>src/components/TermSheet.jsx</code></b>, anchor <code>export const ANIMATIONS</code>
+    <p>Looks up the text in <code>src/data/terms.js</code> and the matching animation component, then shows both. "Play again" re-runs the animation by changing its key.</p></li>
+</ol>
+
+<h2>To change this, start here</h2>
+<div class="card">
+<table>
+  <tr><td>The colors (accent, gains, losses, the dark card)</td><td><code>src/index.css</code>, the <code>:root</code> block, e.g. <code>--accent</code>. Every screen reads these tokens.</td></tr>
+  <tr><td>A term's explanation text</td><td><code>src/data/terms.js</code>, <code>TERMS</code></td></tr>
+  <tr><td>A term's animation</td><td><code>src/animations/</code>, one file per term, wired up in <code>ANIMATIONS</code> in <code>TermSheet.jsx</code></td></tr>
+  <tr><td>Starting cash, trade rules, badges</td><td><code>src/state/portfolio.js</code>: <code>STARTING_CASH</code>, <code>buy</code>, <code>sell</code>, <code>BADGES</code>, <code>earnedBadges</code></td></tr>
+  <tr><td>The "What happened?" wording after a trade</td><td><code>src/state/portfolio.js</code>, <code>explainTrade</code></td></tr>
+  <tr><td>The stocks and their sample numbers</td><td><code>src/data/stocks.js</code>, <code>STOCKS</code></td></tr>
+  <tr><td>Race years, news, and events</td><td><code>src/games/sim.js</code>: <code>ERAS</code>, <code>LIFE_EVENT_YEAR</code>, <code>PANIC_YEAR</code></td></tr>
+  <tr><td>Coin game clues and effects</td><td><code>src/games/sim.js</code>, <code>ROUNDS</code></td></tr>
+  <tr><td>Tabs at the bottom</td><td><code>src/components/TabBar.jsx</code>, <code>TABS</code>, plus the <code>tab ===</code> lines in <code>App.jsx</code></td></tr>
+</table>
+</div>
+
+<h2>A practice to reuse</h2>
+<div class="card practice">
+<p><b>Give the agent a concrete visual reference, and keep design decisions in tokens.</b></p>
+<p>In this build, descriptive words ("minimal and dark", "more playful") produced looks that were judged too basic or generic. A written brief got closer. A reference screenshot of a real brokerage app produced the look that was approved with a single tweak (mint green to mint blue). The record is under <code>## Revisions</code> in <code>devpost/checklist.md</code> and in <code>spec.md › Look and Feel</code>.</p>
+<p>Because every color lives as a CSS variable in <code>src/index.css</code>, each of those four restyles touched about ten token lines instead of every screen. In the wrap-up, changing <code>--accent</code> recolored the tab bar, pills, and term underlines at once.</p>
+<p><b>Next project:</b> before asking an agent for UI, collect one or two screenshots you like and say what to copy from them (and what not to). Ask for colors and fonts to be defined once as tokens, so later changes are a few lines.</p>
+</div>
+
+<h2>Run it again</h2>
+<div class="card">
+<pre>npm install      # first time only
+npm run dev      # then open http://localhost:5173</pre>
+<details><summary>On your phone (same Wi-Fi)</summary>
+<pre>npx vite --host  # then open http://&lt;your-laptop-IP&gt;:5173 on the phone</pre>
+<p class="foot">Find the laptop's IP with <code>ipconfig</code> (look for the Wi-Fi "IPv4 Address"). Allow Node.js through Windows Firewall if asked.</p>
+</details>
+<details><summary>Check the rules without the browser</summary>
+<p class="foot">The trading and game rules are plain functions in <code>src/state/portfolio.js</code> and <code>src/games/sim.js</code>, so you can import them in a small <code>node</code> script and check results directly. That's how they were verified during the build.</p>
+</details>
+</div>
+</main>
+</body>
+</html>

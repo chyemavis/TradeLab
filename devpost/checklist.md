@@ -62,7 +62,7 @@ Build mode: fast
 ## Hands-on Checkpoints
 
 - [x] Early usable behavior explored — after slice 2 (prices plus the kernel animations), while the design and animations can still change. Feedback led to three restyles (playful, then calm navy, then a light brokerage look in mint blue) and the Learning extras slice.
-- [ ] Final kick-the-tires exploration and feedback completed
+- [x] Final kick-the-tires exploration and feedback completed (laptop and phone)
 
 ## Final Review
 
@@ -72,19 +72,19 @@ Build mode: fast
 - [x] Made both games animated and game-like (year-by-year race with weather banners, crash shake and podium; coin baskets with a spotlight spin, lightning strike, live total and star rating) — learner: "more animation like, like a real game"
 - [x] Games open on a full-screen landscape stage (rotated on upright phones; fullscreen + landscape lock where supported) with colorful weather skies, runner avatars, storm cloud, lightning flash, coin physics and confetti — learner: "flipped to horizontal mode", "more animations and colours"
 - [x] Rebuild games as round-based 5-minute games (15-Year Race; Don't Drop the Coins), trimmed version — learner design brief; `prd.md > Games`
-- [ ] Final review complete — feedback resolved and learner confirms ready to ship
+- [x] Final review complete — feedback resolved and learner confirms ready to ship
 
 ## Code Tour and App Map
 
-- [ ] Learning activity complete — guided route, focused alternative, prior practice connected, or brief recap
-- [ ] Optional edit and transfer reflection addressed — offered/declined/already covered/not applicable as appropriate
-- [ ] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse
+- [x] Learning activity complete — guided route, focused alternative, prior practice connected, or brief recap
+- [x] Optional edit and transfer reflection addressed — offered/declined/already covered/not applicable as appropriate
+- [x] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse
 
-Activity and evidence:
-Route and stops:
-Edit outcome:
-Reflection:
-Activity mode:
+Activity and evidence: Focused alternative tied to the learning goal (better AI design output). Connected the four restyles in `## Revisions` (adjectives → written brief → reference screenshot) to the tokens in `src/index.css :root`. Learner changed `--accent` and saw the whole app recolor, then restored it.
+Route and stops: Reference route only, in the app map: TermLink.jsx `export default function TermLink` → App.jsx `const openTerm` → TermSheet.jsx `export const ANIMATIONS`.
+Edit outcome: Tried (accent color token) and reverted by the learner; no change to commit.
+Reflection: Offered in the hand-off; optional.
+Activity mode: Focused alternative with a live app and editor.
 
 ## Revisions
 
