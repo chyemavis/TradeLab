@@ -1,0 +1,4 @@
+{
+  // Tailwind's @tailwind and @apply are processed at build time; VS Code's plain CSS checker doesn't know them.
+  "css.lint.unknownAtRules": "ignore"
+}
